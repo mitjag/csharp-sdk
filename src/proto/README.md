@@ -16,7 +16,7 @@ Run the protoc compiler
 protoc -I=$SRC_DIR --csharp_out=$DST_DIR $SRC_DIR/addressbook.proto
 ```
 
-For example generates dex.cs
+For example run protoc from PowerShell and generates dex.cs
 ```
 C:\protoc-3.7.1-win64\bin\protoc.exe .\dex.proto --csharp_out=.
 ```

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace com.binance.dex.sdk.proto {
+namespace binance.dex.sdk.proto {
 
   /// <summary>Holder for reflection information generated from dex.proto</summary>
   public static partial class DexReflection {
@@ -48,16 +48,16 @@ namespace com.binance.dex.sdk.proto {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.StdTx), global::com.binance.dex.sdk.proto.StdTx.Parser, new[]{ "Msgs", "Signatures", "Memo", "Source", "Data" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.StdSignature), global::com.binance.dex.sdk.proto.StdSignature.Parser, new[]{ "PubKey", "Signature", "AccountNumber", "Sequence" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.StdSignature.Types.PubKey), global::com.binance.dex.sdk.proto.StdSignature.Types.PubKey.Parser, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.NewOrder), global::com.binance.dex.sdk.proto.NewOrder.Parser, new[]{ "Sender", "Id", "Symbol", "Ordertype", "Side", "Price", "Quantity", "Timeinforce" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.CancelOrder), global::com.binance.dex.sdk.proto.CancelOrder.Parser, new[]{ "Sender", "Symbol", "Refid" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.TokenFreeze), global::com.binance.dex.sdk.proto.TokenFreeze.Parser, new[]{ "From", "Symbol", "Amount" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.TokenUnfreeze), global::com.binance.dex.sdk.proto.TokenUnfreeze.Parser, new[]{ "From", "Symbol", "Amount" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.Send), global::com.binance.dex.sdk.proto.Send.Parser, new[]{ "Inputs", "Outputs" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.Send.Types.Token), global::com.binance.dex.sdk.proto.Send.Types.Token.Parser, new[]{ "Denom", "Amount" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.Send.Types.Input), global::com.binance.dex.sdk.proto.Send.Types.Input.Parser, new[]{ "Address", "Coins" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.Send.Types.Output), global::com.binance.dex.sdk.proto.Send.Types.Output.Parser, new[]{ "Address", "Coins" }, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::com.binance.dex.sdk.proto.Vote), global::com.binance.dex.sdk.proto.Vote.Parser, new[]{ "ProposalId", "Voter", "Option" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.StdTx), global::binance.dex.sdk.proto.StdTx.Parser, new[]{ "Msgs", "Signatures", "Memo", "Source", "Data" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.StdSignature), global::binance.dex.sdk.proto.StdSignature.Parser, new[]{ "PubKey", "Signature", "AccountNumber", "Sequence" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.StdSignature.Types.PubKey), global::binance.dex.sdk.proto.StdSignature.Types.PubKey.Parser, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.NewOrder), global::binance.dex.sdk.proto.NewOrder.Parser, new[]{ "Sender", "Id", "Symbol", "Ordertype", "Side", "Price", "Quantity", "Timeinforce" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.CancelOrder), global::binance.dex.sdk.proto.CancelOrder.Parser, new[]{ "Sender", "Symbol", "Refid" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.TokenFreeze), global::binance.dex.sdk.proto.TokenFreeze.Parser, new[]{ "From", "Symbol", "Amount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.TokenUnfreeze), global::binance.dex.sdk.proto.TokenUnfreeze.Parser, new[]{ "From", "Symbol", "Amount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.Send), global::binance.dex.sdk.proto.Send.Parser, new[]{ "Inputs", "Outputs" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.Send.Types.Token), global::binance.dex.sdk.proto.Send.Types.Token.Parser, new[]{ "Denom", "Amount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.Send.Types.Input), global::binance.dex.sdk.proto.Send.Types.Input.Parser, new[]{ "Address", "Coins" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.Send.Types.Output), global::binance.dex.sdk.proto.Send.Types.Output.Parser, new[]{ "Address", "Coins" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::binance.dex.sdk.proto.Vote), global::binance.dex.sdk.proto.Vote.Parser, new[]{ "ProposalId", "Voter", "Option" }, null, null, null)
           }));
     }
     #endregion
@@ -75,7 +75,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[0]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -316,7 +316,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[1]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -546,7 +546,7 @@ namespace com.binance.dex.sdk.proto {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::com.binance.dex.sdk.proto.StdSignature.Descriptor.NestedTypes[0]; }
+          get { return global::binance.dex.sdk.proto.StdSignature.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -655,7 +655,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[2]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1007,7 +1007,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[3]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1204,7 +1204,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[4]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1401,7 +1401,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[5]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1598,7 +1598,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[6]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1627,21 +1627,21 @@ namespace com.binance.dex.sdk.proto {
 
     /// <summary>Field number for the "inputs" field.</summary>
     public const int InputsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::com.binance.dex.sdk.proto.Send.Types.Input> _repeated_inputs_codec
-        = pb::FieldCodec.ForMessage(10, global::com.binance.dex.sdk.proto.Send.Types.Input.Parser);
-    private readonly pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Input> inputs_ = new pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Input>();
+    private static readonly pb::FieldCodec<global::binance.dex.sdk.proto.Send.Types.Input> _repeated_inputs_codec
+        = pb::FieldCodec.ForMessage(10, global::binance.dex.sdk.proto.Send.Types.Input.Parser);
+    private readonly pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Input> inputs_ = new pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Input>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Input> Inputs {
+    public pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Input> Inputs {
       get { return inputs_; }
     }
 
     /// <summary>Field number for the "outputs" field.</summary>
     public const int OutputsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::com.binance.dex.sdk.proto.Send.Types.Output> _repeated_outputs_codec
-        = pb::FieldCodec.ForMessage(18, global::com.binance.dex.sdk.proto.Send.Types.Output.Parser);
-    private readonly pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Output> outputs_ = new pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Output>();
+    private static readonly pb::FieldCodec<global::binance.dex.sdk.proto.Send.Types.Output> _repeated_outputs_codec
+        = pb::FieldCodec.ForMessage(18, global::binance.dex.sdk.proto.Send.Types.Output.Parser);
+    private readonly pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Output> outputs_ = new pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Output>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Output> Outputs {
+    public pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Output> Outputs {
       get { return outputs_; }
     }
 
@@ -1744,7 +1744,7 @@ namespace com.binance.dex.sdk.proto {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::com.binance.dex.sdk.proto.Send.Descriptor.NestedTypes[0]; }
+          get { return global::binance.dex.sdk.proto.Send.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1901,7 +1901,7 @@ namespace com.binance.dex.sdk.proto {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::com.binance.dex.sdk.proto.Send.Descriptor.NestedTypes[1]; }
+          get { return global::binance.dex.sdk.proto.Send.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1941,11 +1941,11 @@ namespace com.binance.dex.sdk.proto {
 
         /// <summary>Field number for the "coins" field.</summary>
         public const int CoinsFieldNumber = 2;
-        private static readonly pb::FieldCodec<global::com.binance.dex.sdk.proto.Send.Types.Token> _repeated_coins_codec
-            = pb::FieldCodec.ForMessage(18, global::com.binance.dex.sdk.proto.Send.Types.Token.Parser);
-        private readonly pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token> coins_ = new pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token>();
+        private static readonly pb::FieldCodec<global::binance.dex.sdk.proto.Send.Types.Token> _repeated_coins_codec
+            = pb::FieldCodec.ForMessage(18, global::binance.dex.sdk.proto.Send.Types.Token.Parser);
+        private readonly pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token> coins_ = new pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token>();
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token> Coins {
+        public pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token> Coins {
           get { return coins_; }
         }
 
@@ -2050,7 +2050,7 @@ namespace com.binance.dex.sdk.proto {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::com.binance.dex.sdk.proto.Send.Descriptor.NestedTypes[2]; }
+          get { return global::binance.dex.sdk.proto.Send.Descriptor.NestedTypes[2]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2090,11 +2090,11 @@ namespace com.binance.dex.sdk.proto {
 
         /// <summary>Field number for the "coins" field.</summary>
         public const int CoinsFieldNumber = 2;
-        private static readonly pb::FieldCodec<global::com.binance.dex.sdk.proto.Send.Types.Token> _repeated_coins_codec
-            = pb::FieldCodec.ForMessage(18, global::com.binance.dex.sdk.proto.Send.Types.Token.Parser);
-        private readonly pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token> coins_ = new pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token>();
+        private static readonly pb::FieldCodec<global::binance.dex.sdk.proto.Send.Types.Token> _repeated_coins_codec
+            = pb::FieldCodec.ForMessage(18, global::binance.dex.sdk.proto.Send.Types.Token.Parser);
+        private readonly pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token> coins_ = new pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token>();
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public pbc::RepeatedField<global::com.binance.dex.sdk.proto.Send.Types.Token> Coins {
+        public pbc::RepeatedField<global::binance.dex.sdk.proto.Send.Types.Token> Coins {
           get { return coins_; }
         }
 
@@ -2207,7 +2207,7 @@ namespace com.binance.dex.sdk.proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::com.binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[7]; }
+      get { return global::binance.dex.sdk.proto.DexReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

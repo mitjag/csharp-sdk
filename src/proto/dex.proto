@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "com.binance.dex.sdk.proto";
+option csharp_namespace = "binance.dex.sdk.proto";
 
 package transaction;
 
