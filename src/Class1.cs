@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace csharp_sdk
+namespace com.binance.dex
 {
     public class Class1
     {
