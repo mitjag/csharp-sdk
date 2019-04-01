@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace test
+namespace com.binance.dex.sdk.test
 {
     public class UnitTest1
     {
