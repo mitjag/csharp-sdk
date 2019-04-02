@@ -1,22 +1,26 @@
 ﻿using RestSharp;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace binance.dex.sdk.httpapi
 {
-    public class HttpApiClient
+    public class HttpApiClient : IHttpApi
     {
+        public BinanceDexEnvironmentData BinanceDexEnvironmentData { get; }
 
-        public string BaseUrl { get; }
+        private readonly RestClient restClient;
 
-        private RestClient restClient;
-
-        public HttpApiClient(string baseUrl)
+        public HttpApiClient(BinanceDexEnvironmentData binanceDexEnvironmentData)
         {
-            BaseUrl = baseUrl;
-            restClient = new RestClient(BaseUrl);
+            restClient = new RestClient(binanceDexEnvironmentData.BaseUrl);
         }
 
+        public void Time()
+        {
+            var request = new RestRequest("/api/v1/time", Method.GET);
+            var response = restClient.Execute(request);
+        }
     }
 }

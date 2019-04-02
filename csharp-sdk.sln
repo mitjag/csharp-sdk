@@ -3,11 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src", "src\src.csproj", "{93B10190-4979-4C0E-9ED0-5C055352A3B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "src", "src\src.csproj", "{93B10190-4979-4C0E-9ED0-5C055352A3B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{A694A14D-2C40-4EEF-B3F9-B8A998655A8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{A694A14D-2C40-4EEF-B3F9-B8A998655A8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93B10190-4979-4C0E-9ED0-5C055352A3B2} = {93B10190-4979-4C0E-9ED0-5C055352A3B2}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cli", "cli\cli.csproj", "{C020A204-C283-44A3-B1AB-C4FCAE91D843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cli", "cli\cli.csproj", "{C020A204-C283-44A3-B1AB-C4FCAE91D843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
