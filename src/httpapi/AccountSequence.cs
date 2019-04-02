@@ -4,9 +4,8 @@ using System.Text;
 
 namespace binance.dex.sdk.httpapi
 {
-    public interface IHttpApi
+    public class AccountSequence
     {
-        Times Time();
-
+/*sequence long number used for preventing replay attack 	1*/
     }
 }

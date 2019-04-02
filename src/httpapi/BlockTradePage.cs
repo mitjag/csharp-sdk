@@ -4,9 +4,9 @@ using System.Text;
 
 namespace binance.dex.sdk.httpapi
 {
-    public interface IHttpApi
+    public class BlockTradePage
     {
-        Times Time();
-
+/*blockTrade[BlockTrade]
+total   long*/
     }
 }

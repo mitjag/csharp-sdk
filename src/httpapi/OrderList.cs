@@ -4,9 +4,9 @@ using System.Text;
 
 namespace binance.dex.sdk.httpapi
 {
-    public interface IHttpApi
+    public class OrderList
     {
-        Times Time();
-
+/*order[Order] list of orders
+total long*/
     }
 }
