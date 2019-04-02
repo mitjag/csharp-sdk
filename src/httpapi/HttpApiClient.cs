@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace src.httpapi
+namespace binance.dex.sdk.httpapi
 {
-    class HttpApiClient
+    public class HttpApiClient
     {
 
         public string BaseUrl { get; }

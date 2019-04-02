@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace src.websocket
+namespace binance.dex.sdk.websocket
 {
-    class WebSocketClient
+    public class WebSocketClient
     {
     }
 }

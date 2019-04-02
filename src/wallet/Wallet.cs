@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace src.wallet
+namespace binance.dex.sdk.wallet
 {
-    class Wallet
+    public class Wallet
     {
     }
 }

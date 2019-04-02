@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace cli
+namespace binance.dex.sdk.cli
 {
     class Program
     {

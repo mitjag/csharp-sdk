@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>binance.dex.sdk</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="httpapi\" />
-    <Folder Include="noderpc\" />
-    <Folder Include="websocket\" />
-    <Folder Include="wallet\" />
     <Folder Include="proto\" />
   </ItemGroup>
 

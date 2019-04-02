@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace src.noderpc
+namespace binance.dex.sdk.noderpc
 {
-    class NodeRpcClient
+    public class NodeRpcClient
     {
     }
 }
