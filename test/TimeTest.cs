@@ -10,7 +10,6 @@ namespace binance.dex.sdk.test
 {
     public class TimeTest
     {
-
         [Fact]
         public void RequestTimeTest()
         {
