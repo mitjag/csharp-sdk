@@ -11,8 +11,4 @@
     <PackageReference Include="RestSharp" Version="106.6.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="proto\" />
-  </ItemGroup>
-
 </Project>
