@@ -44,6 +44,13 @@ namespace binance.dex.sdk.wallet
             pubKeyPrefix.CopyTo(PubKeyForSign, 0);
             PubKeyForSign[pubKeyPrefix.Length] = 33;
             pubKey.CopyTo(PubKeyForSign, pubKeyPrefix.Length + 1);
+
+            byte[] pubKey = EcKey.PubKey.ToBytes();
+            byte[] pubKeyPrefix = TransactionType.GetTransactionType(ETransactionType.PubKey);
+            PubKeyForSign = new byte[pubKey.Length + pubKeyPrefix.Length + 1];
+            pubKeyPrefix.CopyTo(PubKeyForSign, 0);
+            PubKeyForSign[pubKeyPrefix.Length] = 33;
+            pubKey.CopyTo(PubKeyForSign, pubKeyPrefix.Length + 1);
         }
     }
 }
