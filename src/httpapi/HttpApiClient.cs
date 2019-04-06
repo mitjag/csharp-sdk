@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using binance.dex.sdk.model;
+using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
 using System;
@@ -137,10 +138,6 @@ namespace binance.dex.sdk.httpapi
         startTime 	query 	start time in Milliseconds 	No 	long
         txAsset 	query 	txAsset 	No 	string
         txType 	query 	transaction type. Allowed value: [ NEW_ORDER,ISSUE_TOKEN,BURN_TOKEN,LIST_TOKEN,CANCEL_ORDER,FREEZE_TOKEN,UN_FREEZE_TOKEN,TRANSFER,PROPOSAL,VOTE,MINT,DEPOSIT] 	No 	enum string
-
-
-
         */
-
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace binance.dex.sdk.message
 {
-    interface ITransactionMessage
+    public interface ITransactionMessage
     {
     }
 }

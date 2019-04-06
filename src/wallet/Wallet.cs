@@ -1,4 +1,4 @@
-﻿using binance.dex.sdk.proto;
+﻿using binance.dex.sdk.message;
 using NBitcoin;
 using NBitcoin.DataEncoders;
 using System;
@@ -39,7 +39,7 @@ namespace binance.dex.sdk.wallet
             }
             Address = bech32Encoder.EncodeData(address32);
             byte[] pubKey = EcKey.PubKey.ToBytes();
-            byte[] pubKeyPrefix = TransactionType.GetTransactionType(ETransactionType.PubKey);
+            byte[] pubKeyPrefix = MessageType.GetTransactionType(EMessageType.PubKey);
             PubKeyForSign = new byte[pubKey.Length + pubKeyPrefix.Length + 1];
             pubKeyPrefix.CopyTo(PubKeyForSign, 0);
             PubKeyForSign[pubKeyPrefix.Length] = 33;

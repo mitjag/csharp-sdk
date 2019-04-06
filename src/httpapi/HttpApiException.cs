@@ -1,4 +1,5 @@
-﻿using System;
+﻿using binance.dex.sdk.model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

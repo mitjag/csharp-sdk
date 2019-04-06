@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace binance.dex.sdk.httpapi
+namespace binance.dex.sdk.model
 {
     public class Order
     {
