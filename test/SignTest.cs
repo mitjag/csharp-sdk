@@ -69,20 +69,25 @@ namespace binance.dex.sdk.test
                 hash = sha256.ComputeHash(bytes);
             }
             Wallet wallet = new Wallet("f0e87ed55fa3d86f62b38b405cbb5f732764a7d5bc690da45a32aa3f2fc81a36", BinanceDexEnvironment.TEST_NET);
-            string resultB = wallet.EcKey.SignMessage(bytes);
-            string resultS = wallet.EcKey.SignMessage(json);
+            //string resultB = wallet.EcKey.SignMessage(bytes);
+            //string resultS = wallet.EcKey.SignMessage(json);
 
+            uint256 hash256 = Hashes.Hash256(bytes);
             uint256 uint256 = new uint256(hash, false);
+            uint256 uint256le = new uint256(hash, true);
             //uint256 uint256 = new uint256("8460f586e5f967dae300de2d62ad2010f56cf8a8beb06a0ef3228d63a2849b8b");
 
-            ECDSASignature signature = wallet.EcKey.Sign(uint256);
-            byte[] result = wallet.EcKey.SignCompact(uint256);
+            // message for GenerateSignature [-124, 96, -11, -122, -27, -7, 103, -38, -29, 0, -34, 45, 98, -83, 32, 16, -11, 108, -8, -88, -66, -80, 106, 14, -13, 34, -115, 99, -94, -124, -101, -117]
+            ECDSASignature signature = wallet.EcKey.Sign(uint256le, false);
 
+            byte[] signatureBytes = new byte[64];
+            signature.R.ToByteArrayUnsigned().CopyTo(signatureBytes, 0);
+            signature.S.ToByteArrayUnsigned().CopyTo(signatureBytes, 32);
             // r = 61420091277463284201584464261002339752469911249959494312431854777400008021097
             // s = 9337502753576151745268672761590576963567913315001541648793269425462248583710
-
             // signature result = [-121, -54, -118, 43, 107, -25, 50, -112, -101, 34, -63, -121, -111, -90, 109, -72, -95, -42, 55, -87, -108, -42, -21, -99, -2, -74, 13, -106, 99, -34, -108, 105, 20, -92, -42, -38, 116, -51, 15, 44, -17, -29, -119, -53, -119, -51, 58, -48, -38, -92, 39, -99, -64, 119, -81, 112, -97, -103, 112, -91, -71, -119, -78, 30]
-            byte[] resultBytes = Encoders.Base64.DecodeData(resultB);
+
+            //byte[] resultBytes = Encoders.Base64.DecodeData(resultB);
         }
     }
 }
