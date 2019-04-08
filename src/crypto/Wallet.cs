@@ -8,7 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace binance.dex.sdk.wallet
+namespace binance.dex.sdk.crypto
 {
     public class Wallet
     {
