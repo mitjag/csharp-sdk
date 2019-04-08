@@ -1,4 +1,4 @@
-﻿using binance.dex.sdk.wallet;
+﻿using binance.dex.sdk.crypto;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,4 +1,5 @@
-﻿using binance.dex.sdk.model;
+﻿using binance.dex.sdk.broadcast;
+using binance.dex.sdk.model;
 using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
@@ -23,9 +24,8 @@ namespace binance.dex.sdk.httpapi
             restClient = new RestClient(binanceDexEnvironmentData.BaseUrl);
         }
 
-        private T Execute<T>(string resource, Method method) where T : new()
+        private T Execute<T>(RestRequest request) where T : new()
         {
-            var request = new RestRequest(resource, method);
             var response = restClient.Execute<T>(request);
             if (response.StatusCode != HttpStatusCode.OK || response.ErrorException != null)
             {
@@ -43,7 +43,15 @@ namespace binance.dex.sdk.httpapi
 
         public Times Time()
         {
-            return Execute<Times>("/api/v1/time", Method.GET);
+            var request = new RestRequest("/api/v1/time", Method.GET);
+            return Execute<Times>(request);
+        }
+
+        public List<TransactionMetadata> Broadcast(string body)
+        {
+            var request = new RestRequest("/api/v1/broadcast", Method.POST);
+            request.AddParameter("POST", body, "text/plain; charset=utf-8", ParameterType.RequestBody);
+            return Execute<List<TransactionMetadata>>(request);
         }
 
         /*

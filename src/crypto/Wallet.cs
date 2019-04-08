@@ -20,6 +20,7 @@ namespace binance.dex.sdk.crypto
         public int AccountNumber { get; set; }
         public long? Sequence { get; set; }
         public BinanceDexEnvironmentData Env { get; set; }
+        public string ChainId { get; set; }
 
         const string pbase32 = "abcdefghijklmnopqrstuvwxyz234567";
 
@@ -44,6 +45,12 @@ namespace binance.dex.sdk.crypto
             pubKeyPrefix.CopyTo(PubKeyForSign, 0);
             PubKeyForSign[pubKeyPrefix.Length] = 33;
             pubKey.CopyTo(PubKeyForSign, pubKeyPrefix.Length + 1);
+        }
+
+        public byte[] DecodeAddress(string address)
+        {
+            Bech32Encoder bech32Encoder = Encoders.Bech32(Env.Hrp);
+            return bech32Encoder.DecodeData(address);
         }
     }
 }

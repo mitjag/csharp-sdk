@@ -1,5 +1,5 @@
 ﻿using binance.dex.sdk.message;
-using binance.dex.sdk.wallet;
+using binance.dex.sdk.crypto;
 using NBitcoin;
 using NBitcoin.Crypto;
 using NBitcoin.DataEncoders;
@@ -43,8 +43,8 @@ namespace binance.dex.sdk.test
 
             TransferMessage transferMessage = new TransferMessage
             {
-                inputs = new List<InputOutput> { input },
-                outputs = new List<InputOutput> { output }
+                Inputs = new List<InputOutput> { input },
+                Outputs = new List<InputOutput> { output }
             };
 
             SignData signData = new SignData

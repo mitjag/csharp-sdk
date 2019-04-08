@@ -12,9 +12,9 @@ namespace binance.dex.sdk.message
     public class TransferMessage : ITransactionMessage
     {
         [JsonProperty("inputs", Order = 1)]
-        public List<InputOutput> inputs;
+        public List<InputOutput> Inputs;
 
         [JsonProperty("outputs", Order = 2)]
-        public List<InputOutput> outputs;
+        public List<InputOutput> Outputs;
     }
 }
