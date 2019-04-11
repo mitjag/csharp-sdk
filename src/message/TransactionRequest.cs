@@ -37,7 +37,7 @@ namespace binance.dex.sdk.message
 
         }
 
-        private byte[] sign(ITransactionMessage msg)
+        private byte[] Sign(ITransactionMessage msg)
         {
             SignData signData = new SignData();
             signData.ChainId = Wallet.ChainId;
@@ -162,7 +162,7 @@ namespace binance.dex.sdk.message
         {
             TransferMessage msgBean = CreateTransferMessage(transfer);
             byte[] msg = EncodeTransferMessage(msgBean);
-            byte[] signature = EncodeSignature(sign(msgBean));
+            byte[] signature = EncodeSignature(Sign(msgBean));
             byte[] stdTx = EncodeStdTx(msg, signature);
             return BitConverter.ToString(stdTx);
         }
