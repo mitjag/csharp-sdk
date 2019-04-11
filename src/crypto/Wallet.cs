@@ -49,8 +49,8 @@ namespace binance.dex.sdk.crypto
 
         public byte[] DecodeAddress(string address)
         {
-            Bech32Encoder bech32Encoder = Encoders.Bech32(Env.Hrp);
-            return bech32Encoder.DecodeData(address);
+            Bech32Decoder bech32Decoder = new Bech32Decoder(Env.Hrp);
+            return bech32Decoder.DecodeData(address);
         }
     }
 }

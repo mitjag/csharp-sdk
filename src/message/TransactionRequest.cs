@@ -14,9 +14,9 @@ namespace binance.dex.sdk.message
 
         public Wallet Wallet { get; }
 
-        public TranscationOption TranscationOption { get; }
+        public TransactionOption TranscationOption { get; }
 
-        public TransactionRequest(Wallet wallet, TranscationOption transcationOption)
+        public TransactionRequest(Wallet wallet, TransactionOption transcationOption)
         {
             Wallet = wallet;
             TranscationOption = transcationOption;
@@ -50,7 +50,7 @@ namespace binance.dex.sdk.message
             return Signature.Sign(signData, Wallet.EcKey);
         }
 
-        TransferMessage CreateTransferMessage(Transfer transfer)
+        public TransferMessage CreateTransferMessage(Transfer transfer)
         {
             Token token = new Token();
             token.Denom = transfer.Coin;
@@ -87,7 +87,7 @@ namespace binance.dex.sdk.message
             return input;
         }
 
-        private proto.Send.Types.Output toProtoOutput(InputOutput inputOutput)
+        private Send.Types.Output toProtoOutput(InputOutput inputOutput)
         {
             Send.Types.Output output = new Send.Types.Output();
             byte[] address = Wallet.DecodeAddress(inputOutput.Address);
@@ -104,7 +104,7 @@ namespace binance.dex.sdk.message
             return output;
         }
 
-        private byte[] EncodeTransferMessage(TransferMessage transferMessage)
+        public byte[] EncodeTransferMessage(TransferMessage transferMessage)
         {
             /*proto.Send.Builder builder = com.binance.dex.api.proto.Send.newBuilder();
             foreach (InputOutput input in transferMessage.Inputs)

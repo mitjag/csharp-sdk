@@ -4,15 +4,15 @@ using System.Text;
 
 namespace binance.dex.sdk.broadcast
 {
-    public class TranscationOption
+    public class TransactionOption
     {
         public string Memo { get; set; }
         public long Source { get; set; }
         public byte[] Data { get; set; }
 
-        public static TranscationOption DefaultInstace()
+        public static TransactionOption DefaultInstace()
         {
-            return new TranscationOption
+            return new TransactionOption
             {
                 Memo = "",
                 Source = 3,
