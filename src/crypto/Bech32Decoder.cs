@@ -6,6 +6,9 @@ using System.Text;
 
 namespace binance.dex.sdk.crypto
 {
+    /// <summary>
+    /// From NBitcoin Bech32Encoder, DecodeData implemented
+    /// </summary>
     public class Bech32Decoder
     {
 
