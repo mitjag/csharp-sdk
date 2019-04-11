@@ -37,7 +37,7 @@ namespace binance.dex.sdk.message
 
         }
 
-        private byte[] Sign(ITransactionMessage msg)
+        public byte[] Sign(ITransactionMessage msg)
         {
             SignData signData = new SignData();
             signData.ChainId = Wallet.ChainId;
@@ -131,7 +131,7 @@ namespace binance.dex.sdk.message
             return EncodeUtils.AminoWrap(send.ToByteArray(), MessageType.GetTransactionType(EMessageType.Send), false);
         }
 
-        private byte[] EncodeSignature(byte[] signatureBytes)
+        public byte[] EncodeSignature(byte[] signatureBytes)
         {
             StdSignature stdSignature = new StdSignature
             {
@@ -144,7 +144,7 @@ namespace binance.dex.sdk.message
             return EncodeUtils.AminoWrap(stdSignature.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdSignature), false);
         }
 
-        private byte[] EncodeStdTx(byte[] msg, byte[] signature)
+        public byte[] EncodeStdTx(byte[] msg, byte[] signature)
         {
             StdTx stdTx = new StdTx();
             stdTx.Msgs.Add(ByteString.CopyFrom(msg));
