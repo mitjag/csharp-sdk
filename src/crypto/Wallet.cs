@@ -52,5 +52,39 @@ namespace binance.dex.sdk.crypto
             Bech32Decoder bech32Decoder = new Bech32Decoder(Env.Hrp);
             return bech32Decoder.DecodeData(address);
         }
+
+        public void ReloadAccountSequence(BinanceDexApiRestClient client)
+        {
+            AccountSequence accountSequence = client.getAccountSequence(this.address);
+            this.sequence = accountSequence.getSequence();
+        }
+
+        public void EnsureWalletIsReady(BinanceDexApiRestClient client)
+        {
+            if (accountNumber == null)
+            {
+                initAccount(client);
+            }
+            else if (sequence == null)
+            {
+                reloadAccountSequence(client);
+            }
+
+            if (chainId == null)
+            {
+                chainId = CHAIN_IDS.get(chainId);
+                if (chainId == null)
+                {
+                    initChainId(client);
+                }
+            }
+        }
+
+        public void InitChainId(BinanceDexApiRestClient client)
+        {
+            Infos info = client.getNodeInfo();
+            chainId = info.getNodeInfo().getNetwork();
+            CHAIN_IDS.put(env, chainId);
+        }
     }
 }

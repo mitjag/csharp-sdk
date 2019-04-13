@@ -37,7 +37,7 @@ namespace binance.dex.sdk.message
 
         }
 
-        public byte[] Sign(ITransactionMessage msg)
+        private byte[] Sign(ITransactionMessage msg)
         {
             SignData signData = new SignData();
             signData.ChainId = Wallet.ChainId;
@@ -50,7 +50,7 @@ namespace binance.dex.sdk.message
             return Signature.Sign(signData, Wallet.EcKey);
         }
 
-        public TransferMessage CreateTransferMessage(Transfer transfer)
+        private TransferMessage CreateTransferMessage(Transfer transfer)
         {
             Token token = new Token();
             token.Denom = transfer.Coin;
@@ -104,20 +104,8 @@ namespace binance.dex.sdk.message
             return output;
         }
 
-        public byte[] EncodeTransferMessage(TransferMessage transferMessage)
+        private byte[] EncodeTransferMessage(TransferMessage transferMessage)
         {
-            /*proto.Send.Builder builder = com.binance.dex.api.proto.Send.newBuilder();
-            foreach (InputOutput input in transferMessage.Inputs)
-            {
-                builder.addInputs(toProtoInput(input));
-            }
-            foreach (InputOutput output in transferMessage.Outputs)
-            {
-                builder.addOutputs(toProtoOutput(output));
-            }
-            proto.Send proto = builder.build();
-            return EncodeUtils.aminoWrap(proto.toByteArray(), MessageType.Send.getTypePrefixBytes(), false);*/
-
             Send send = new Send();
             foreach (InputOutput input in transferMessage.Inputs)
             {
@@ -131,7 +119,7 @@ namespace binance.dex.sdk.message
             return EncodeUtils.AminoWrap(send.ToByteArray(), MessageType.GetTransactionType(EMessageType.Send), false);
         }
 
-        public byte[] EncodeSignature(byte[] signatureBytes)
+        private byte[] EncodeSignature(byte[] signatureBytes)
         {
             StdSignature stdSignature = new StdSignature
             {
@@ -144,7 +132,7 @@ namespace binance.dex.sdk.message
             return EncodeUtils.AminoWrap(stdSignature.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdSignature), false);
         }
 
-        public byte[] EncodeStdTx(byte[] msg, byte[] signature)
+        private byte[] EncodeStdTx(byte[] msg, byte[] signature)
         {
             StdTx stdTx = new StdTx();
             stdTx.Msgs.Add(ByteString.CopyFrom(msg));
@@ -164,7 +152,7 @@ namespace binance.dex.sdk.message
             byte[] msg = EncodeTransferMessage(msgBean);
             byte[] signature = EncodeSignature(Sign(msgBean));
             byte[] stdTx = EncodeStdTx(msg, signature);
-            return BitConverter.ToString(stdTx);
+            return EncodeUtils.ByteArrayToString(stdTx);
         }
     }
 }

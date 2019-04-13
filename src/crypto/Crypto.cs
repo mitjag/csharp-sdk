@@ -19,7 +19,7 @@ namespace binance.dex.sdk
             {
                 key = HDKeyDerivation.deriveChildKey(key, cn);
             }
-            return key.getPrivateKeyAsHex();*/
+            return key.getPrivateKeyAs();*/
             Mnemonic mnemonic = new Mnemonic(wordlist);
             return mnemonic.ToString();
         }

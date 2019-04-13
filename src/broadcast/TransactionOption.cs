@@ -10,14 +10,17 @@ namespace binance.dex.sdk.broadcast
         public long Source { get; set; }
         public byte[] Data { get; set; }
 
-        public static TransactionOption DefaultInstace()
+        public static TransactionOption DefaultInstace
         {
-            return new TransactionOption
+            get
             {
-                Memo = "",
-                Source = 3,
-                Data = null
-            };
+                return new TransactionOption
+                {
+                    Memo = "",
+                    Source = 3,
+                    Data = null
+                };
+            }
         }
     }
 }
