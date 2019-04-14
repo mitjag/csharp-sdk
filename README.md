@@ -6,21 +6,19 @@ Source code is under MIT License (MIT)
 C# SDK is inspired by Binance DEX Java SDK, (used a lot in previous Binance DEX "competition")
 
 Project uses following NuGet packages:
-
-    NBitcoin
-    Google.Protobuf
-    RestSharp
-    WebsocketRPC.Standalone
+- NBitcoin
+- Google.Protobuf
+- RestSharp
+- WebsocketRPC.Standalone
 
 SDK supports:
-    Creating Wallets
-    Creating Signature
-    Broadcast to Binance DEX chain
-    HTTP API
-    WebSockets
+- Creating Wallets
+- Creating Signature
+- Broadcast to Binance DEX chain
+- HTTP API
+- WebSockets
 
 Example how to transfer founds:
-Transfer 
 
 ``` cs
     HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
@@ -40,3 +38,6 @@ Transfer
     string body = assmebler.BuildTransfer(transfer);
     List<TransactionMetadata> result = httpApiClient.Broadcast(body);
 ```
+
+Example how to listen web socket stream:
+TODO
