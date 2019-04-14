@@ -10,8 +10,17 @@ namespace binance.dex.sdk.httpapi
     {
         Times Time();
 
-        //List<TransactionMetadata> Transfer(Transfer transfer);
+        Infos NodeInfo();
 
-        List<TransactionMetadata> Broadcast(string body);
+        ValidatorInfo Validators();
+
+        List<Peer> Peers();
+
+        Account Account(string address);
+
+        AccountSequence AccountSequence(string address);
+
+        List<TransactionMetadata> Broadcast(string body, bool sync);
+        //List<TransactionMetadata> Transfer(Transfer transfer);
     }
 }

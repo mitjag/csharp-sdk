@@ -1,4 +1,6 @@
-﻿using binance.dex.sdk.message;
+﻿using binance.dex.sdk.httpapi;
+using binance.dex.sdk.message;
+using binance.dex.sdk.model;
 using NBitcoin;
 using NBitcoin.DataEncoders;
 using System;
@@ -12,12 +14,15 @@ namespace binance.dex.sdk.crypto
 {
     public class Wallet
     {
+        private readonly Dictionary<BinanceDexEnvironmentData, string> CHAIN_IDS = new Dictionary<BinanceDexEnvironmentData, string>();
+        private readonly HttpApiClient client;
+
         public string PrivateKey { get; set; }
         public string Address { get; set; }
         public Key EcKey { get; set; }
         public byte[] AddressBytes { get; set; }
         public byte[] PubKeyForSign { get; set; }
-        public int AccountNumber { get; set; }
+        public long? AccountNumber { get; set; }
         public long? Sequence { get; set; }
         public BinanceDexEnvironmentData Env { get; set; }
         public string ChainId { get; set; }
@@ -45,6 +50,8 @@ namespace binance.dex.sdk.crypto
             pubKeyPrefix.CopyTo(PubKeyForSign, 0);
             PubKeyForSign[pubKeyPrefix.Length] = 33;
             pubKey.CopyTo(PubKeyForSign, pubKeyPrefix.Length + 1);
+
+            client = new HttpApiClient(Env);
         }
 
         public byte[] DecodeAddress(string address)
@@ -53,38 +60,55 @@ namespace binance.dex.sdk.crypto
             return bech32Decoder.DecodeData(address);
         }
 
-        public void ReloadAccountSequence(BinanceDexApiRestClient client)
+        public void InitAccount()
         {
-            AccountSequence accountSequence = client.getAccountSequence(this.address);
-            this.sequence = accountSequence.getSequence();
+            Account account = client.Account(Address);
+            if (account != null)
+            {
+                AccountNumber = account.AccountNumber;
+                Sequence = account.Sequence;
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    "Cannot get account information for address " + Address +
+                        " (does this account exist on the blockchain yet?)");
+            }
         }
 
-        public void EnsureWalletIsReady(BinanceDexApiRestClient client)
+
+        public void ReloadAccountSequence()
         {
-            if (accountNumber == null)
+            AccountSequence accountSequence = client.AccountSequence(Address);
+            Sequence = accountSequence.Sequence;
+        }
+
+        public void EnsureWalletIsReady()
+        {
+            if (AccountNumber == null)
             {
-                initAccount(client);
+                InitAccount();
             }
-            else if (sequence == null)
+            else if (Sequence == null)
             {
-                reloadAccountSequence(client);
+                ReloadAccountSequence();
             }
 
-            if (chainId == null)
+            if (ChainId == null)
             {
-                chainId = CHAIN_IDS.get(chainId);
-                if (chainId == null)
+                ChainId = CHAIN_IDS.GetValueOrDefault(Env);
+                if (ChainId == null)
                 {
-                    initChainId(client);
+                    InitChainId(client);
                 }
             }
         }
 
-        public void InitChainId(BinanceDexApiRestClient client)
+        public void InitChainId(HttpApiClient client)
         {
-            Infos info = client.getNodeInfo();
-            chainId = info.getNodeInfo().getNetwork();
-            CHAIN_IDS.put(env, chainId);
+            Infos info = client.NodeInfo();
+            ChainId = info.NodeInfo.Network;
+            CHAIN_IDS.Add(Env, ChainId);
         }
     }
 }

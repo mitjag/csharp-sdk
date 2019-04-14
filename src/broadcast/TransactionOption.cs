@@ -6,6 +6,8 @@ namespace binance.dex.sdk.broadcast
 {
     public class TransactionOption
     {
+        public const long BINANCE_DEX_API_CLIENT_CSHARP_SOURCE = 4;
+
         public string Memo { get; set; }
         public long Source { get; set; }
         public byte[] Data { get; set; }
@@ -17,7 +19,7 @@ namespace binance.dex.sdk.broadcast
                 return new TransactionOption
                 {
                     Memo = "",
-                    Source = 3,
+                    Source = BINANCE_DEX_API_CLIENT_CSHARP_SOURCE,
                     Data = null
                 };
             }

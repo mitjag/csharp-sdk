@@ -4,6 +4,7 @@ using binance.dex.sdk.proto;
 using Google.Protobuf;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace binance.dex.sdk.message
@@ -24,7 +25,7 @@ namespace binance.dex.sdk.message
 
         private static long DoubleToLong(String d)
         {
-            Decimal encodeValue = Decimal.Multiply(Decimal.Parse(d), MULTIPLY_FACTOR);
+            Decimal encodeValue = Decimal.Multiply(Decimal.Parse(d, NumberStyles.Currency, CultureInfo.InvariantCulture), MULTIPLY_FACTOR);
             if (encodeValue.CompareTo(Decimal.Zero) <= 0)
             {
                 throw new ArgumentException(d + " is less or equal to zero.");
@@ -34,7 +35,6 @@ namespace binance.dex.sdk.message
                 throw new ArgumentException(d + " is too large.");
             }
             return Decimal.ToInt64(encodeValue);
-
         }
 
         private byte[] Sign(ITransactionMessage msg)
@@ -125,7 +125,7 @@ namespace binance.dex.sdk.message
             {
                 PubKey = ByteString.CopyFrom(Wallet.PubKeyForSign),
                 Signature = ByteString.CopyFrom(signatureBytes),
-                AccountNumber = Wallet.AccountNumber,
+                AccountNumber = Wallet.AccountNumber.Value,
                 Sequence = Wallet.Sequence.Value
             };
 
@@ -148,6 +148,7 @@ namespace binance.dex.sdk.message
 
         public string BuildTransfer(Transfer transfer)
         {
+            Wallet.EnsureWalletIsReady();
             TransferMessage msgBean = CreateTransferMessage(transfer);
             byte[] msg = EncodeTransferMessage(msgBean);
             byte[] signature = EncodeSignature(Sign(msgBean));
