@@ -28,11 +28,27 @@ namespace binance.dex.sdk.test
         }
 
         [Fact]
-        public void NodeInfoest()
+        public void NodeInfoTest()
         {
             HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
             var infos = client.NodeInfo();
             Assert.NotNull(infos);
+        }
+
+        [Fact]
+        public void ValidatorsTest()
+        {
+            HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            var validatorInfo = client.Validators();
+            Assert.NotNull(validatorInfo);
+        }
+
+        [Fact]
+        public void PeersTest()
+        {
+            HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            var peers = client.Peers();
+            Assert.NotNull(peers);
         }
 
         [Fact]
@@ -47,6 +63,14 @@ namespace binance.dex.sdk.test
             Assert.NotEqual(0, account.AccountNumber);
         }
 
+        [Fact]
+        public void AccountSequenceTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = new Wallet("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
+            var accountSequence = httpApiClient.AccountSequence(wallet.Address);
+            Assert.NotEqual(0, accountSequence.Sequence);
+        }
 
         [Fact]
         public void BroadcastTest()

@@ -13,4 +13,13 @@ namespace binance.dex.sdk.websocket.stream
         [JsonProperty("data")]
         public IStreamData Data { get; set; }
     }
+
+    public class BlockheightPayload
+    {
+        [JsonProperty("stream")]
+        public string Stream { get; set; }
+
+        [JsonProperty("data")]
+        public Blockheight Data { get; set; }
+    }
 }

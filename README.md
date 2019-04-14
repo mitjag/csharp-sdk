@@ -15,8 +15,8 @@ SDK supports:
 - Creating Wallets
 - Creating Signature
 - Broadcast to Binance DEX chain
-- HTTP API
-- WebSockets
+- HTTP API (https://binance-chain.github.io/api-reference/dex-api/paths.html)
+- WebSockets (https://binance-chain.github.io/api-reference/dex-api/ws-streams.html)
 
 Example how to transfer founds:
 
@@ -40,4 +40,26 @@ Example how to transfer founds:
 ```
 
 Example how to listen web socket stream:
-TODO
+
+
+``` cs
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            WebSocketClient client = new WebSocketClient();
+            client.Env = BinanceDexEnvironment.TEST_NET;
+            client.Topic = websocket.ETopic.Blockheight;
+            client.StreamData += OnStreamData;
+            client.Connect();
+
+            Console.ReadLine();
+        }
+
+        private static void OnStreamData(object sender, IStreamData data)
+        {
+            Blockheight blockheight = (Blockheight)data;
+            Console.WriteLine(blockheight.BlockHeight);
+        }
+    }
+```

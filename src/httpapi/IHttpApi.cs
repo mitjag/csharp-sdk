@@ -21,6 +21,7 @@ namespace binance.dex.sdk.httpapi
         AccountSequence AccountSequence(string address);
 
         List<TransactionMetadata> Broadcast(string body, bool sync);
+
         //List<TransactionMetadata> Transfer(Transfer transfer);
     }
 }

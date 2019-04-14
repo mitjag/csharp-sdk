@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using binance.dex.sdk.websocket;
+using binance.dex.sdk.websocket.stream;
+using Serilog;
 using System;
 using System.Net.WebSockets;
 using System.Threading;
@@ -15,25 +17,20 @@ namespace binance.dex.sdk.cli
             Log.Information("No one listens to me!");
             Console.WriteLine("Hello World!");
 
-            string url = "wss://testnet-dex.binance.org/api/ws/$all@blockheight";
-            Console.WriteLine("Biance DEX chain");
-
-            Client.ConnectAsync(url, CancellationToken.None, c =>
-            {
-                c.OnOpen += () => new Task(() => Console.WriteLine("Opened"));
-                c.OnClose += (s, d) => new Task(() => Console.WriteLine("Closed: " + s));
-                c.OnError += err => new Task(() => Console.WriteLine("Error: " + err.Message));
-                //c.OnReceive += async msg => { Console.WriteLine(msg); /*await c.CloseAsync();*/ };
-                c.OnReceive += StreamOnReceive;
-            }).Wait(0);
+            WebSocketClient client = new WebSocketClient();
+            client.Env = BinanceDexEnvironment.TEST_NET;
+            client.Topic = websocket.ETopic.Blockheight;
+            client.StreamData += OnStreamData;
+            client.Connect();
 
             Console.ReadLine();
         }
 
-        private static Task StreamOnReceive(string arg)
+        private static void OnStreamData(object sender, IStreamData data)
         {
-            Console.WriteLine(arg);
-            return Task.CompletedTask;
+            Blockheight blockheight = (Blockheight)data;
+            Console.WriteLine(blockheight.BlockHeight);
+            Log.Information($"BlockHeight: {blockheight.BlockHeight}");
         }
     }
 }
