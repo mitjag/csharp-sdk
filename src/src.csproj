@@ -10,7 +10,6 @@
     <PackageReference Include="NBitcoin" Version="4.1.1.98" />
     <PackageReference Include="RestSharp" Version="106.6.9" />
     <PackageReference Include="WebsocketRPC.Standalone" Version="1.0.6" />
-    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
   </ItemGroup>
 
 </Project>
