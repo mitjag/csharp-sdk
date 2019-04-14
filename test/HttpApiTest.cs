@@ -52,7 +52,9 @@ namespace binance.dex.sdk.test
         public void BroadcastTest()
         {
             HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = new Wallet(
+                "6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09",
+                BinanceDexEnvironment.TEST_NET);
 
             Transfer transfer = new Transfer
             {
@@ -64,7 +66,7 @@ namespace binance.dex.sdk.test
 
             TransactionRequest assmebler = new TransactionRequest(wallet, TransactionOption.DefaultInstace);
             string body = assmebler.BuildTransfer(transfer);
-            var result = httpApiClient.Broadcast(body);
+            List<TransactionMetadata> result = httpApiClient.Broadcast(body);
             foreach (TransactionMetadata metadata in result)
             {
                 Assert.True(metadata.Ok);
