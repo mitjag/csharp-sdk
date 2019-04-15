@@ -20,7 +20,19 @@ namespace binance.dex.sdk.httpapi
 
         AccountSequence AccountSequence(string address);
 
-        List<TransactionMetadata> Broadcast(string body, bool sync);
+        Transaction Tx(string hash, bool raw = true);
+
+        List<Token> Tokens(int limit = 500, int offset = 0);
+
+        List<Market> Markets(int limit = 500, int offset = 0);
+
+        List<FeeData> Fees();
+
+        MarketDepth Depth(string symbol, int limit = 5);
+
+        List<TransactionMetadata> Broadcast(string body, bool sync = true);
+
+        List<List<object>> KLines(string symbol, string interval, int limit = 300, long? startTime = null, long? endTime = null);
 
         //List<TransactionMetadata> Transfer(Transfer transfer);
     }

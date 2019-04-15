@@ -11,7 +11,7 @@ namespace binance.dex.sdk.message
 {
     public class TransactionRequest
     {
-        private const Decimal MULTIPLY_FACTOR = 1e8M;
+        private const decimal MULTIPLY_FACTOR = 1e8M;
 
         public Wallet Wallet { get; }
 
@@ -25,8 +25,8 @@ namespace binance.dex.sdk.message
 
         private static long DoubleToLong(String d)
         {
-            Decimal encodeValue = Decimal.Multiply(Decimal.Parse(d, NumberStyles.Currency, CultureInfo.InvariantCulture), MULTIPLY_FACTOR);
-            if (encodeValue.CompareTo(Decimal.Zero) <= 0)
+            decimal encodeValue = decimal.Multiply(decimal.Parse(d, NumberStyles.Currency, CultureInfo.InvariantCulture), MULTIPLY_FACTOR);
+            if (encodeValue.CompareTo(decimal.Zero) <= 0)
             {
                 throw new ArgumentException(d + " is less or equal to zero.");
             }
@@ -34,7 +34,7 @@ namespace binance.dex.sdk.message
             {
                 throw new ArgumentException(d + " is too large.");
             }
-            return Decimal.ToInt64(encodeValue);
+            return decimal.ToInt64(encodeValue);
         }
 
         private byte[] Sign(ITransactionMessage msg)

@@ -73,6 +73,46 @@ namespace binance.dex.sdk.test
         }
 
         [Fact]
+        public void TxTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            Transaction transaction = httpApiClient.Tx("D726ACEEE1AC98815A206EBEB2EE0280BFAE6EEB53A0E3F564175443E31B8A5D");
+            Assert.True(transaction.Ok);
+        }
+
+        [Fact]
+        public void TokensTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            List<model.Token> tokens = httpApiClient.Tokens(500, 0);
+            Assert.NotEmpty(tokens);
+        }
+
+        [Fact]
+        public void MarketsTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            List<Market> markets = httpApiClient.Markets();
+            Assert.NotEmpty(markets);
+        }
+
+        [Fact]
+        public void FeesTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            List<FeeData> fees = httpApiClient.Fees();
+            Assert.NotEmpty(fees);
+        }
+
+        [Fact]
+        public void DepthTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            MarketDepth marketDepth = httpApiClient.Depth("PND-943_BNB");
+            Assert.NotNull(marketDepth);
+        }
+
+        [Fact]
         public void BroadcastTest()
         {
             HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
@@ -95,6 +135,14 @@ namespace binance.dex.sdk.test
             {
                 Assert.True(metadata.Ok);
             }
+        }
+
+        [Fact]
+        public void KLinesTest()
+        {
+            HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            List<List<object>> klines  = httpApiClient.KLines("PND-943_BNB", "5m");
+            Assert.NotEmpty(klines);
         }
     }
 }

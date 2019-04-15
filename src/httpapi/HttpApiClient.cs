@@ -90,10 +90,14 @@ namespace binance.dex.sdk.httpapi
         /// format query   Response format(json or omit)
         /// </summary>
         /// <param name="hash"></param>
-        public void Tx(string hash, string format = "json")
+        public Transaction Tx(string hash, bool raw = true)
         {
             var request = new RestRequest($"/api/v1/tx/{hash}", Method.GET);
-            request.AddQueryParameter("format", format);
+            if (!raw)
+            {
+                request.AddQueryParameter("format", "json");
+            }
+            return Execute<Transaction>(request);
         }
 
         /// <summary>
@@ -102,9 +106,12 @@ namespace binance.dex.sdk.httpapi
         /// </summary>
         /// <param name="limit"></param>
         /// <param name="offset"></param>
-        public void Tokens(int limit, int offset)
+        public List<Token> Tokens(int limit = 500, int offset = 0)
         {
             var request = new RestRequest("/api/v1/tokens", Method.GET);
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            return Execute<List<Token>>(request);
         }
 
         /// <summary>
@@ -113,14 +120,18 @@ namespace binance.dex.sdk.httpapi
         /// </summary>
         /// <param name="limit"></param>
         /// <param name="offset"></param>
-        public void Markets(int limit, int offset)
+        public List<Market> Markets(int limit = 500, int offset = 0)
         {
             var request = new RestRequest("/api/v1/markets", Method.GET);
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            return Execute<List<Market>>(request);
         }
 
-        public void Fees()
+        public List<FeeData> Fees()
         {
             var request = new RestRequest("/api/v1/fees", Method.GET);
+            return Execute<List<FeeData>>(request);
         }
 
         /// <summary>
@@ -129,9 +140,12 @@ namespace binance.dex.sdk.httpapi
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="limit"></param>
-        public void Depth(string symbol, int limit)
+        public MarketDepth Depth(string symbol, int limit = 5)
         {
             var request = new RestRequest("/api/v1/depth", Method.GET);
+            request.AddQueryParameter("symbol", symbol);
+            request.AddQueryParameter("limit", limit.ToString());
+            return Execute<MarketDepth>(request);
         }
 
         /// <summary>
@@ -161,9 +175,21 @@ namespace binance.dex.sdk.httpapi
         /// <param name="limit"></param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
-        public void Klines(string symbol, string interval, int limit, long startTime, long endTime)
+        public List<List<object>> KLines(string symbol, string interval, int limit = 300, long? startTime = null, long? endTime = null)
         {
             var request = new RestRequest("/api/v1/klines", Method.GET);
+            request.AddQueryParameter("symbol", symbol);
+            request.AddQueryParameter("interval", interval);
+            request.AddQueryParameter("limit", limit.ToString());
+            if (startTime.HasValue)
+            {
+                request.AddQueryParameter("startTime", startTime.ToString());
+            }
+            if (endTime.HasValue)
+            {
+                request.AddQueryParameter("endTime", endTime.ToString());
+            }
+            return Execute<List<List<object>>>(request);
         }
 
         /// <summary>
