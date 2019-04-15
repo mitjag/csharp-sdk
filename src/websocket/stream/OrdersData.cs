@@ -58,6 +58,8 @@ namespace binance.dex.sdk.websocket.stream
         "O": 1499405658657,            // Order creation time
       }]
          */
+        
+        public ETopic Topic { get { return ETopic.Orders; } }
 
         [JsonProperty("orders")]
         public List<Order> Orders { get; set; }

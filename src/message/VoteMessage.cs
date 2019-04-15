@@ -5,7 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.message
 {
-    //@JsonIgnoreProperties(ignoreUnknown = true)
     /// <summary>
     /// Json property order is alphabetic
     /// </summary>
@@ -18,13 +17,13 @@ namespace binance.dex.sdk.message
         public const string VoteOptionDefault = "";
 
         //@JsonSerialize(using = ToStringSerializer.class) // long
-        [JsonProperty("proposal_id")]
-        private string ProposalId;
+        [JsonProperty("proposal_id", Order = 2)]
+        public string ProposalId { get; set; }
 
-        [JsonProperty("voter")]
-        private string Voter;
+        [JsonProperty("voter", Order = 3)]
+        public string Voter { get; set; }
 
-        [JsonProperty("option")]
-        private string Option;
+        [JsonProperty("option", Order = 1)]
+        public string Option { get; set; }
     }
 }

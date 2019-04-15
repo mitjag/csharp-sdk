@@ -36,7 +36,9 @@ namespace binance.dex.sdk.websocket.stream
         }
       ]
     }]
-         */
+        */
+
+        public ETopic Topic { get { return ETopic.Accounts; } }
 
         [JsonProperty("accounts")]
         public List<Account> Accounts { get; set; }

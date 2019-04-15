@@ -16,7 +16,7 @@ namespace binance.dex.sdk.test
             //string url = "wss://testnet-dex.binance.org/api/ws/$all@blockheight";
             WebSocketClient client = new WebSocketClient();
             client.Env = BinanceDexEnvironment.TEST_NET;
-            client.Topic = websocket.ETopic.Blockheight;
+            client.Topic = ETopic.Blockheight;
             client.StreamData += Client_StreamData;
             client.Connect();
         }

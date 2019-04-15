@@ -19,7 +19,7 @@ namespace binance.dex.sdk.cli
 
             WebSocketClient client = new WebSocketClient();
             client.Env = BinanceDexEnvironment.TEST_NET;
-            client.Topic = websocket.ETopic.Blockheight;
+            client.Topic = ETopic.Blockheight;
             client.StreamData += OnStreamData;
             client.Connect();
 

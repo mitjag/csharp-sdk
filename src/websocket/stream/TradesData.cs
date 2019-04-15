@@ -39,7 +39,9 @@ namespace binance.dex.sdk.websocket.stream
         "ba": "bnb1kdr00ydr8xj3ydcd3a8ej2xxn8lkuja7mdunr5" // BuyerAddress
     }]
          */
-        
+
+        public ETopic Topic { get { return ETopic.Trades; } }
+
         [JsonProperty("trades")]
         public List<Trade> Trades { get; set; }
     }

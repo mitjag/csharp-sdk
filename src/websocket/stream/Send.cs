@@ -13,15 +13,8 @@ namespace binance.dex.sdk.websocket.stream
         public const string Unsubscribe = "unsubscribe";
     }
 
-    public class ETopic
-    {
-        public const string Orders = "orders";
-        public const string MarketDepth = "marketDepth";
-    }
-
     public class Send
     {
-
         [JsonProperty("method")]
         public string Method { get; set; }
 

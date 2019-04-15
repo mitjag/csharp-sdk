@@ -33,5 +33,7 @@ namespace binance.dex.sdk.websocket.stream
     "n": 18151          // Total number of trades
   }
          */
+
+        public ETopic Topic { get { return ETopic.Ticker; } }
     }
 }

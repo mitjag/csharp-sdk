@@ -6,5 +6,6 @@ namespace binance.dex.sdk.websocket.stream
 {
     public interface IStreamData
     {
+        ETopic Topic { get; }
     }
 }

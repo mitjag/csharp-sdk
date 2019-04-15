@@ -19,5 +19,7 @@ namespace binance.dex.sdk.websocket.stream
     "q": "18",                // Total traded quote asset volume
   }
          */
+
+        public ETopic Topic { get { return ETopic.MiniTicker; } }
     }
 }

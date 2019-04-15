@@ -5,7 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.message
 {
-    //@JsonIgnoreProperties(ignoreUnknown = true)
     /// <summary>
     /// Json property order is alphabetic
     /// </summary>

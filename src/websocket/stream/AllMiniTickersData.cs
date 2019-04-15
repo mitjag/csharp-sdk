@@ -23,5 +23,7 @@ namespace binance.dex.sdk.websocket.stream
       ...
     }]
          */
+
+        public ETopic Topic { get { return ETopic.AllMiniTickers; } }
     }
 }
