@@ -8,6 +8,6 @@ namespace binance.dex.sdk.broadcast
     {
         public long ProposalId { get; set; }
 
-        public int Option { get; set; }
+        public long Option { get; set; }
     }
 }

@@ -16,6 +16,40 @@ namespace binance.dex.sdk.message
         public const string VoteOptionNoWithVeto = "NoWithVeto";
         public const string VoteOptionDefault = "";
 
+        public static string ToOption(long option)
+        {
+            switch (option)
+            {
+                case 1:
+                    return VoteOptionYes;
+                case 2:
+                    return VoteOptionAbstain;
+                case 3:
+                    return VoteOptionNo;
+                case 4:
+                    return VoteOptionNoWithVeto;
+                default:
+                    return VoteOptionDefault;
+            }
+        }
+
+        public static long ToOption(string option)
+        {
+            switch (option)
+            {
+                case VoteOptionYes:
+                    return 1;
+                case VoteOptionAbstain:
+                    return 2;
+                case VoteOptionNo:
+                    return 3;
+                case VoteOptionNoWithVeto:
+                    return 4;
+                default:
+                    return 0;
+            }
+        }
+
         //@JsonSerialize(using = ToStringSerializer.class) // long
         [JsonProperty("proposal_id", Order = 2)]
         public string ProposalId { get; set; }

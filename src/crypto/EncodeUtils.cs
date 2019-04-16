@@ -36,7 +36,7 @@ namespace binance.dex.sdk.crypto
             return msg;
         }
 
-        public static byte[] StringToByteArray(string hex)
+        public static byte[] HexToByteArray(string hex)
         {
             return Enumerable.Range(0, hex.Length)
                              .Where(x => x % 2 == 0)
@@ -44,7 +44,7 @@ namespace binance.dex.sdk.crypto
                              .ToArray();
         }
 
-        public static string ByteArrayToString(byte[] bytes)
+        public static string ByteArrayToHex(byte[] bytes)
         {
             return BitConverter.ToString(bytes).Replace("-", "");
             /*StringBuilder sb = new StringBuilder(ba.Length * 2);

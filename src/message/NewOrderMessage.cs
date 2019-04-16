@@ -11,7 +11,7 @@ namespace binance.dex.sdk.message
     public class NewOrderMessage : ITransactionMessage
     {
         [JsonProperty("id", Order = 1)]
-        public String Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("ordertype", Order = 2)]
         public long OrderType { get; set; }
@@ -23,7 +23,7 @@ namespace binance.dex.sdk.message
         public long Quantity { get; set; }
 
         [JsonProperty("sender", Order = 5)]
-        public String Sender { get; set; }
+        public string Sender { get; set; }
 
         [JsonProperty("side", Order = 6)]
         public long Side { get; set; }

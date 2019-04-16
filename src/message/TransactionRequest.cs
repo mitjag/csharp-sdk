@@ -1,11 +1,12 @@
 ﻿using binance.dex.sdk.broadcast;
 using binance.dex.sdk.crypto;
-using binance.dex.sdk.proto;
+using binance.dex.sdk;
 using Google.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using binance.dex.sdk.model;
 
 namespace binance.dex.sdk.message
 {
@@ -50,6 +51,195 @@ namespace binance.dex.sdk.message
             return Signature.Sign(signData, Wallet.EcKey);
         }
 
+        private byte[] EncodeSignature(byte[] signatureBytes)
+        {
+            proto.StdSignature stdSignature = new proto.StdSignature
+            {
+                PubKey = ByteString.CopyFrom(Wallet.PubKeyForSign),
+                Signature = ByteString.CopyFrom(signatureBytes),
+                AccountNumber = Wallet.AccountNumber.Value,
+                Sequence = Wallet.Sequence.Value
+            };
+
+            return EncodeUtils.AminoWrap(stdSignature.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdSignature), false);
+        }
+
+        private byte[] EncodeStdTx(byte[] msg, byte[] signature)
+        {
+            proto.StdTx stdTx = new proto.StdTx();
+            stdTx.Msgs.Add(ByteString.CopyFrom(msg));
+            stdTx.Signatures.Add(ByteString.CopyFrom(signature));
+            stdTx.Memo = TranscationOption.Memo;
+            stdTx.Source = TranscationOption.Source;
+            if (TranscationOption.Data != null)
+            {
+                stdTx.Data = ByteString.CopyFrom(TranscationOption.Data);
+            }
+            return EncodeUtils.AminoWrap(stdTx.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdTx), true);
+        }
+
+        private String GenerateOrderId()
+        {
+            return EncodeUtils.ByteArrayToHex(Wallet.AddressBytes).ToUpper() + "-" + (Wallet.Sequence + 1);
+        }
+
+        #region Build Transaction Messages
+        public string BuildNewOrder(NewOrder newOrder)
+        {
+            Wallet.EnsureWalletIsReady();
+            NewOrderMessage msgBean = CreateNewOrderMessage(newOrder);
+            byte[] msg = EncodeNewOrderMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildVote(Vote vote)
+        {
+            Wallet.EnsureWalletIsReady();
+            VoteMessage msgBean = CreateVoteMessage(vote);
+            byte[] msg = EncodeVoteMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildCancelOrder(CancelOrder cancelOrder)
+        {
+            Wallet.EnsureWalletIsReady();
+            CancelOrderMessage msgBean = CreateCancelOrderMessage(cancelOrder);
+            byte[] msg = EncodeCancelOrderMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildTransfer(Transfer transfer)
+        {
+            Wallet.EnsureWalletIsReady();
+            TransferMessage msgBean = CreateTransferMessage(transfer);
+            byte[] msg = EncodeTransferMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildTokenFreeze(TokenFreeze tokenFreeze)
+        {
+            Wallet.EnsureWalletIsReady();
+            TokenFreezeMessage msgBean = CreateTokenFreezeMessage(tokenFreeze);
+            byte[] msg = EncodeTokenFreezeMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildTokenUnfreeze(TokenUnfreeze tokenUnfreeze)
+        {
+            Wallet.EnsureWalletIsReady();
+            TokenUnfreezeMessage msgBean = CreateTokenUnfreezeMessage(tokenUnfreeze);
+            byte[] msg = EncodeTokenUnfreezeMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        public string BuildMultiTransfer(MultiTransfer multiTransfer)
+        {
+            Wallet.EnsureWalletIsReady();
+            TransferMessage msgBean = CreateMultiTransferMessage(multiTransfer);
+            byte[] msg = EncodeTransferMessage(msgBean);
+            byte[] signature = EncodeSignature(Sign(msgBean));
+            byte[] stdTx = EncodeStdTx(msg, signature);
+            return EncodeUtils.ByteArrayToHex(stdTx);
+        }
+
+        private TransferMessage CreateMultiTransferMessage(MultiTransfer multiTransfer)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region NewOrderMessage
+        private NewOrderMessage CreateNewOrderMessage(NewOrder newOrder)
+        {
+            return new NewOrderMessage
+            {
+                Id = GenerateOrderId(),
+                OrderType = OrderType.ToOrderType(newOrder.OrderType),
+                Price = DoubleToLong(newOrder.Price),
+                Quantity = DoubleToLong(newOrder.Quantity),
+                Sender = Wallet.Address,
+                Side = OrderSide.ToOrderSide(newOrder.Side),
+                Symbol = newOrder.Symbol,
+                TimeInForce = TimeInForce.ToTimeInForce(newOrder.TimeInForce),
+            };
+        }
+
+        private byte[] EncodeNewOrderMessage(NewOrderMessage newOrderMessage)
+        {
+            proto.NewOrder newOrder = new proto.NewOrder
+            {
+                Sender = ByteString.CopyFrom(Wallet.AddressBytes),
+                Id = newOrderMessage.Id,
+                Symbol = newOrderMessage.Symbol,
+                Ordertype = newOrderMessage.OrderType,
+                Side = newOrderMessage.Side,
+                Price = newOrderMessage.Price,
+                Quantity = newOrderMessage.Quantity,
+                Timeinforce = newOrderMessage.TimeInForce
+            };
+            return EncodeUtils.AminoWrap(newOrder.ToByteArray(), MessageType.GetTransactionType(EMessageType.NewOrder), false);
+        }
+        #endregion
+
+        #region VoteMessage
+        private VoteMessage CreateVoteMessage(Vote vote)
+        {
+            return new VoteMessage
+            {
+                ProposalId = vote.ProposalId.ToString(),
+                Option = VoteMessage.ToOption(vote.Option),
+                Voter = Wallet.Address
+            };
+        }
+
+        private byte[] EncodeVoteMessage(VoteMessage voteMessage)
+        {
+            proto.Vote vote = new proto.Vote
+            {
+                Voter = ByteString.CopyFrom(Wallet.AddressBytes),
+                ProposalId = long.Parse(voteMessage.ProposalId),
+                Option = VoteMessage.ToOption(voteMessage.Option)
+            };
+            return EncodeUtils.AminoWrap(vote.ToByteArray(), MessageType.GetTransactionType(EMessageType.Vote), false);
+        }
+        #endregion
+
+        #region CancelOrderMessage
+        private CancelOrderMessage CreateCancelOrderMessage(CancelOrder cancelOrder)
+        {
+            return new CancelOrderMessage
+            {
+                RefId = cancelOrder.RefId,
+                Symbol = cancelOrder.Symbol,
+                Sender = Wallet.Address
+            };
+        }
+
+        private byte[] EncodeCancelOrderMessage(CancelOrderMessage cancelOrderMessage)
+        {
+            proto.CancelOrder cancelOrder = new proto.CancelOrder
+            {
+                Sender = ByteString.CopyFrom(Wallet.AddressBytes),
+                Symbol = cancelOrderMessage.Symbol,
+                Refid = cancelOrderMessage.RefId
+            };
+            return EncodeUtils.AminoWrap(cancelOrder.ToByteArray(), MessageType.GetTransactionType(EMessageType.CancelOrder), false);
+        }
+        #endregion
+
+        #region TransferMessage
         private TransferMessage CreateTransferMessage(Transfer transfer)
         {
             Token token = new Token();
@@ -70,14 +260,14 @@ namespace binance.dex.sdk.message
             return msgBean;
         }
 
-        private Send.Types.Input toProtoInput(InputOutput inputOutput)
+        private proto.Send.Types.Input toProtoInput(InputOutput inputOutput)
         {
-            Send.Types.Input input = new Send.Types.Input();
+            proto.Send.Types.Input input = new proto.Send.Types.Input();
             byte[] address = Wallet.DecodeAddress(inputOutput.Address);
             input.Address = ByteString.CopyFrom(address);
             foreach (Token coin in inputOutput.Coins)
             {
-                Send.Types.Token protCoin = new Send.Types.Token
+                proto.Send.Types.Token protCoin = new proto.Send.Types.Token
                 {
                     Amount = coin.Amount,
                     Denom = coin.Denom
@@ -87,14 +277,14 @@ namespace binance.dex.sdk.message
             return input;
         }
 
-        private Send.Types.Output toProtoOutput(InputOutput inputOutput)
+        private proto.Send.Types.Output toProtoOutput(InputOutput inputOutput)
         {
-            Send.Types.Output output = new Send.Types.Output();
+            proto.Send.Types.Output output = new proto.Send.Types.Output();
             byte[] address = Wallet.DecodeAddress(inputOutput.Address);
             output.Address = ByteString.CopyFrom(address);
             foreach (Token coin in inputOutput.Coins)
             {
-                Send.Types.Token protCoin = new Send.Types.Token
+                proto.Send.Types.Token protCoin = new proto.Send.Types.Token
                 {
                     Amount = coin.Amount,
                     Denom = coin.Denom
@@ -106,7 +296,7 @@ namespace binance.dex.sdk.message
 
         private byte[] EncodeTransferMessage(TransferMessage transferMessage)
         {
-            Send send = new Send();
+            proto.Send send = new proto.Send();
             foreach (InputOutput input in transferMessage.Inputs)
             {
                 send.Inputs.Add(toProtoInput(input));
@@ -115,45 +305,54 @@ namespace binance.dex.sdk.message
             {
                 send.Outputs.Add(toProtoOutput(output));
             }
-            ;
             return EncodeUtils.AminoWrap(send.ToByteArray(), MessageType.GetTransactionType(EMessageType.Send), false);
         }
+        #endregion
 
-        private byte[] EncodeSignature(byte[] signatureBytes)
+        #region TokenFreezeMessage
+        private TokenFreezeMessage CreateTokenFreezeMessage(TokenFreeze tokenFreeze)
         {
-            StdSignature stdSignature = new StdSignature
+            return new TokenFreezeMessage
             {
-                PubKey = ByteString.CopyFrom(Wallet.PubKeyForSign),
-                Signature = ByteString.CopyFrom(signatureBytes),
-                AccountNumber = Wallet.AccountNumber.Value,
-                Sequence = Wallet.Sequence.Value
+                Amount = DoubleToLong(tokenFreeze.Amount),
+                From = Wallet.Address,
+                Symbol = tokenFreeze.Symbol
             };
-
-            return EncodeUtils.AminoWrap(stdSignature.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdSignature), false);
         }
 
-        private byte[] EncodeStdTx(byte[] msg, byte[] signature)
+        private byte[] EncodeTokenFreezeMessage(TokenFreezeMessage tokenFreezeMessage)
         {
-            StdTx stdTx = new StdTx();
-            stdTx.Msgs.Add(ByteString.CopyFrom(msg));
-            stdTx.Signatures.Add(ByteString.CopyFrom(signature));
-            stdTx.Memo = TranscationOption.Memo;
-            stdTx.Source = TranscationOption.Source;
-            if (TranscationOption.Data != null)
+            proto.TokenFreeze tokenFreeze = new proto.TokenFreeze
             {
-                stdTx.Data = ByteString.CopyFrom(TranscationOption.Data);
-            }
-            return EncodeUtils.AminoWrap(stdTx.ToByteArray(), MessageType.GetTransactionType(EMessageType.StdTx), true);
+                From = ByteString.CopyFrom(Wallet.DecodeAddress(tokenFreezeMessage.From)),
+                Amount = tokenFreezeMessage.Amount,
+                Symbol = tokenFreezeMessage.Symbol
+            };
+            return EncodeUtils.AminoWrap(tokenFreeze.ToByteArray(), MessageType.GetTransactionType(EMessageType.TokenFreeze), false);
+        }
+        #endregion
+
+        #region TokenUnfreezeMessage
+        private TokenUnfreezeMessage CreateTokenUnfreezeMessage(TokenUnfreeze tokenUnfreeze)
+        {
+            return new TokenUnfreezeMessage
+            {
+                Amount = DoubleToLong(tokenUnfreeze.Amount),
+                From = Wallet.Address,
+                Symbol = tokenUnfreeze.Symbol
+            };
         }
 
-        public string BuildTransfer(Transfer transfer)
+        private byte[] EncodeTokenUnfreezeMessage(TokenUnfreezeMessage tokenUnfreezeMessage)
         {
-            Wallet.EnsureWalletIsReady();
-            TransferMessage msgBean = CreateTransferMessage(transfer);
-            byte[] msg = EncodeTransferMessage(msgBean);
-            byte[] signature = EncodeSignature(Sign(msgBean));
-            byte[] stdTx = EncodeStdTx(msg, signature);
-            return EncodeUtils.ByteArrayToString(stdTx);
+            proto.TokenUnfreeze tokenUnfreeze = new proto.TokenUnfreeze
+            {
+                From = ByteString.CopyFrom(Wallet.DecodeAddress(tokenUnfreezeMessage.From)),
+                Amount = tokenUnfreezeMessage.Amount,
+                Symbol = tokenUnfreezeMessage.Symbol
+            };
+            return EncodeUtils.AminoWrap(tokenUnfreeze.ToByteArray(), MessageType.GetTransactionType(EMessageType.TokenUnfreeze), false);
         }
+        #endregion
     }
 }
