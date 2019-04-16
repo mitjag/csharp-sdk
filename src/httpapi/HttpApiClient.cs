@@ -212,9 +212,37 @@ namespace binance.dex.sdk.httpapi
         /// <param name="status"></param>
         /// <param name="symbol"></param>
         /// <param name="total"></param>
-        public void Closed(string address, long end, int limit, int offset, int side, long start, string status, string symbol, int total)
+        public OrderList Closed(string address, long? end = null, int limit = 500, int offset = 0, int? side = null, long? start = null, string status = null, string symbol = null, int? total = null)
         {
             var request = new RestRequest("/api/v1/orders/closed", Method.GET);
+            request.AddQueryParameter("address", address);
+            if (end.HasValue)
+            {
+                request.AddQueryParameter("end", end.ToString());
+            }
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            if (side.HasValue)
+            {
+                request.AddQueryParameter("side", side.ToString());
+            }
+            if (start.HasValue)
+            {
+                request.AddQueryParameter("start", start.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                request.AddQueryParameter("status", status);
+            }
+            if (!string.IsNullOrWhiteSpace(symbol))
+            {
+                request.AddQueryParameter("symbol", symbol);
+            }
+            if (total.HasValue)
+            {
+                request.AddQueryParameter("total", total.ToString());
+            }
+            return Execute<OrderList>(request);
         }
 
         /// <summary>
@@ -229,27 +257,45 @@ namespace binance.dex.sdk.httpapi
         /// <param name="offset"></param>
         /// <param name="symbol"></param>
         /// <param name="total"></param>
-        public void Open(string addres, int limit, int offset, string symbol, int total)
+        public OrderList Open(string address, int limit = 500, int offset = 0, string symbol = null, int? total = null)
         {
             var request = new RestRequest("/api/v1/orders/open", Method.GET);
+            request.AddQueryParameter("address", address);
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            if (!string.IsNullOrWhiteSpace(symbol))
+            {
+                request.AddQueryParameter("symbol", symbol);
+            }
+            if (total.HasValue)
+            {
+                request.AddQueryParameter("total", total.ToString());
+            }
+            return Execute<OrderList>(request);
         }
 
         /// <summary>
         /// id 	path 	order id 	Yes 	string
         /// </summary>
         /// <param name="id"></param>
-        public void Orders(string id)
+        public Order Orders(string id)
         {
-            var request = new RestRequest("/api/v1/orders/{id}", Method.GET);
+            var request = new RestRequest($"/api/v1/orders/{id}", Method.GET);
+            return Execute<Order>(request);
         }
 
         /// <summary>
         /// symbol 	query 	symbol 	No 	string
         /// </summary>
         /// <param name="symbol"></param>
-        public void Ticker24hr(string symbol)
+        public List<TickerStatistics> Ticker24hr(string symbol = null)
         {
             var request = new RestRequest("/api/v1/ticker/24hr", Method.GET);
+            if (!string.IsNullOrWhiteSpace(symbol))
+            {
+                request.AddQueryParameter("symbol", symbol);
+            }
+            return Execute<List<TickerStatistics>>(request);
         }
 
         /// <summary>
@@ -278,9 +324,52 @@ namespace binance.dex.sdk.httpapi
         /// <param name="start"></param>
         /// <param name="symbol"></param>
         /// <param name="total"></param>
-        public void Trades(string address, string buyerOrderId, long end, long height, int limit, int offset, string quoteAsset, string seelerOrderId, int side, long start, string symbol, int total)
+        public TradePage Trades(string address = null, string buyerOrderId = null, long? end = null, long? height = null, int limit = 500, int offset = 0, string quoteAsset = null, string seelerOrderId = null, int? side = null, long? start = null, string symbol = null, int? total = null)
         {
             var request = new RestRequest("/api/v1/trades", Method.GET);
+            if (!string.IsNullOrWhiteSpace(address))
+            {
+                request.AddQueryParameter("address", address);
+            }
+            if (!string.IsNullOrWhiteSpace(buyerOrderId))
+            {
+                request.AddQueryParameter("buyerOrderId", buyerOrderId);
+            }
+            if (end.HasValue)
+            {
+                request.AddQueryParameter("end", end.ToString());
+            }
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.ToString());
+            }
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            if (!string.IsNullOrWhiteSpace(quoteAsset))
+            {
+                request.AddQueryParameter("quoteAsset", quoteAsset);
+            }
+            if (!string.IsNullOrWhiteSpace(seelerOrderId))
+            {
+                request.AddQueryParameter("seelerOrderId", seelerOrderId);
+            }
+            if (side.HasValue)
+            {
+                request.AddQueryParameter("side", side.ToString());
+            }
+            if (start.HasValue)
+            {
+                request.AddQueryParameter("start", start.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(symbol))
+            {
+                request.AddQueryParameter("symbol", symbol);
+            }
+            if (total.HasValue)
+            {
+                request.AddQueryParameter("total", total.ToString());
+            }
+            return Execute<TradePage>(request);
         }
 
         /// <summary>
@@ -303,9 +392,43 @@ namespace binance.dex.sdk.httpapi
         /// <param name="startTime"></param>
         /// <param name="txAsset"></param>
         /// <param name="txType"></param>
-        public void Transactions(string address, long blockHeight, long endTime, int limit, int offset, string side, long startTime, string txAsset, string txType)
+        public TxPage Transactions(string address, long? blockHeight = null, long? endTime = null, int? limit = null, int? offset = null, string side = null, long? startTime = null, string txAsset = null, string txType = null)
         {
             var request = new RestRequest("/api/v1/transactions", Method.GET);
+            request.AddQueryParameter("address", address);
+            if (blockHeight.HasValue)
+            {
+                request.AddQueryParameter("blockHeight", blockHeight.ToString());
+            }
+            if (endTime.HasValue)
+            {
+                request.AddQueryParameter("endTime", endTime.ToString());
+            }
+            if (limit.HasValue)
+            {
+                request.AddQueryParameter("limit", limit.ToString());
+            }
+            if (offset.HasValue)
+            {
+                request.AddQueryParameter("offset", offset.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(side))
+            {
+                request.AddQueryParameter("side", side);
+            }
+            if (startTime.HasValue)
+            {
+                request.AddQueryParameter("startTime", startTime.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(txAsset))
+            {
+                request.AddQueryParameter("txAsset", txAsset);
+            }
+            if (!string.IsNullOrWhiteSpace(txType))
+            {
+                request.AddQueryParameter("txType", txType);
+            }
+            return Execute<TxPage>(request);
         }
     }
 }

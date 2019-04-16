@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,16 @@ namespace binance.dex.sdk.model
 {
     public class TxPage
     {
-/*total long total sum of transactions
-tx[Tx]*/
+        /// <summary>
+        ///  tx[Tx]
+        /// </summary>
+        [JsonProperty("tx")]
+        public List<Tx> Tx { get; set; }
+
+        /// <summary>
+        /// total long total sum of transactions
+        /// </summary>
+        [JsonProperty("total")]
+        public long Total { get; set; }
     }
 }
