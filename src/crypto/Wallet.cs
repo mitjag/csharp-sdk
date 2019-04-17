@@ -33,7 +33,7 @@ namespace binance.dex.sdk.crypto
         {
             PrivateKey = privateKey;
             Env = env;
-            BigInteger privateKeyBigInteger = BigInteger.Parse("0" + PrivateKey, NumberStyles.HexNumber);
+            BigInteger privateKeyBigInteger = BigInteger.Parse("0" + PrivateKey, NumberStyles.HexNumber); // append "0" to get unsigned BigInteger
             EcKey = new Key(privateKeyBigInteger.ToByteArray(true, true));
             Bech32Encoder bech32Encoder = Encoders.Bech32(Env.Hrp);
             AddressBytes = EcKey.PubKey.Hash.ToBytes();
