@@ -153,11 +153,6 @@ namespace binance.dex.sdk.message
             byte[] stdTx = EncodeStdTx(msg, signature);
             return EncodeUtils.ByteArrayToHex(stdTx);
         }
-
-        private TransferMessage CreateMultiTransferMessage(MultiTransfer multiTransfer)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region NewOrderMessage
@@ -352,6 +347,63 @@ namespace binance.dex.sdk.message
                 Symbol = tokenUnfreezeMessage.Symbol
             };
             return EncodeUtils.AminoWrap(tokenUnfreeze.ToByteArray(), MessageType.GetTransactionType(EMessageType.TokenUnfreeze), false);
+        }
+        #endregion
+
+        #region MultiTransferMessage
+        private TransferMessage CreateMultiTransferMessage(MultiTransfer multiTransfer)
+        {
+            Dictionary<string, long> inputsCoins = new Dictionary<string, long>();
+            List<InputOutput> outputs = new List<InputOutput>();
+            foreach (Output output in multiTransfer.Outputs)
+            {
+                InputOutput inputOutput = new InputOutput
+                {
+                    Address = output.Address
+                };
+                List<Token> tokens = new List<Token>(output.Tokens.Count);
+                foreach (OutputToken outputToken in output.Tokens)
+                {
+                    Token token = new Token
+                    {
+                        Denom = outputToken.Coin,
+                        Amount = DoubleToLong(outputToken.Amount)
+                    };
+                    tokens.Add(token);
+
+                    long inputSum = inputsCoins.GetValueOrDefault(outputToken.Coin, 0L);
+                    long newSum = inputSum + token.Amount;
+                    if (newSum < 0L)
+                    {
+                        throw new ArgumentException("Transfer amount overflow");
+                    }
+                    inputsCoins.Add(outputToken.Coin, newSum);
+                }
+                tokens.Sort((x, y) => (x.Denom.CompareTo(y.Denom)));
+                inputOutput.Coins = tokens;
+                outputs.Add(inputOutput);
+            }
+
+            InputOutput input = new InputOutput()
+            {
+                Address = multiTransfer.FromAddress
+            };
+            List<Token> inputTokens = new List<Token>(inputsCoins.Count);
+            foreach (string coin in inputsCoins.Keys)
+            {
+                Token token = new Token()
+                {
+                    Denom = coin,
+                    Amount = inputsCoins[coin]
+                };
+                inputTokens.Add(token);
+            }
+            input.Coins = inputTokens;
+
+            TransferMessage transferMessage = new TransferMessage();
+            transferMessage.Inputs = new List<InputOutput> { input };
+            transferMessage.Outputs = outputs;
+            return transferMessage;
         }
         #endregion
     }

@@ -6,8 +6,8 @@ namespace binance.dex.sdk.broadcast
 {
     public class MultiTransfer
     {
-        public String fromAddress { get; set; }
+        public String FromAddress { get; set; }
 
-        public List<Output> outputs { get; set; }
+        public List<Output> Outputs { get; set; }
     }
 }
