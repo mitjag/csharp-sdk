@@ -16,7 +16,7 @@ SDK supports:
 - Creating Signature
 - Broadcast to Binance DEX chain
 - HTTP API (https://binance-chain.github.io/api-reference/dex-api/paths.html)
-- WebSockets (https://binance-chain.github.io/api-reference/dex-api/ws-streams.html)
+- WebSockets Streams (https://binance-chain.github.io/api-reference/dex-api/ws-streams.html)
 
 Example how to transfer founds:
 
