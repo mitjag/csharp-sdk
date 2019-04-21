@@ -32,15 +32,15 @@ namespace binance.dex.sdk.test
         {
             HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
             var infos = client.NodeInfo();
-            Assert.NotNull(infos);
+            Assert.NotNull(infos.NodeInfo);
         }
 
         [Fact]
         public void ValidatorsTest()
         {
             HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            var validatorInfo = client.Validators();
-            Assert.NotNull(validatorInfo);
+            var validator = client.Validators();
+            Assert.NotNull(validator.Validators[0].Address);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace binance.dex.sdk.test
         {
             HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
             var peers = client.Peers();
-            Assert.NotNull(peers);
+            Assert.NotNull(peers[0].Id);
         }
 
         [Fact]

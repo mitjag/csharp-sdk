@@ -7,7 +7,7 @@ namespace binance.dex.sdk.httpapi
 {
     public class HttpApiException : Exception
     {
-        public Error Error { get; set; }
+        public Error Error { get; }
 
         public HttpApiException(String message, Exception innerException) : base(message, innerException)
         {

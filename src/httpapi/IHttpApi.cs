@@ -16,7 +16,7 @@ namespace binance.dex.sdk.httpapi
 
         Infos NodeInfo();
 
-        ValidatorInfo Validators();
+        Validator Validators();
 
         List<Peer> Peers();
 

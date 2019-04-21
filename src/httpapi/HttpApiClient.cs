@@ -1,5 +1,6 @@
 ﻿using binance.dex.sdk.broadcast;
 using binance.dex.sdk.model;
+using binance.dex.sdk.util;
 using RestSharp;
 using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
@@ -21,7 +22,7 @@ namespace binance.dex.sdk.httpapi
 
         public HttpApiClient(BinanceDexEnvironmentData binanceDexEnvironmentData)
         {
-            restClient = new RestClient(binanceDexEnvironmentData.BaseUrl);
+            restClient = new RestClient(binanceDexEnvironmentData.BaseUrl).UseSerializer(() => new JsonNetSerializer());
         }
 
         private T Execute<T>(RestRequest request) where T : new()
@@ -53,10 +54,10 @@ namespace binance.dex.sdk.httpapi
             return Execute<Infos>(request);
         }
 
-        public ValidatorInfo Validators()
+        public Validator Validators()
         {
             var request = new RestRequest("/api/v1/validators", Method.GET);
-            return Execute<ValidatorInfo>(request);
+            return Execute<Validator>(request);
         }
 
         public List<Peer> Peers()

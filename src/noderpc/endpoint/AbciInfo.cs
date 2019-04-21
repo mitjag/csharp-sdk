@@ -5,9 +5,9 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class AbciInfo
+    public class AbciInfoRequest
     {
-        public static RpcRequest AbciInfoRequest
+        public static RpcRequest Request
         {
             get
             {
@@ -28,7 +28,22 @@ namespace binance.dex.sdk.noderpc.endpoint
             LastBlockHeight      int64
             LastBlockAppHash     []byte
         }     
-     */
+    */
+
+    /*
+        {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "data": "BNBChain",
+              "last_block_height": "9611317",
+              "last_block_app_hash": "/drwJ+9iLMHGHN8ott4Niux5gZeuCpayZ5HtxBsoScM="
+            }
+          }
+        }
+    */
+
     public class ResponseInfo
     {
         [JsonProperty("data2")]

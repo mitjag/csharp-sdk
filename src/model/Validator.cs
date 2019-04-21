@@ -7,7 +7,8 @@ namespace binance.dex.sdk.model
 {
     public class ValidatorInfo
     {
-        public string address;
+        [JsonProperty("address")]
+        public string Address { get; set; }
 
         [JsonProperty("pub_key")]
         public List<int> PubKey { get; set; }

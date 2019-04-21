@@ -9,6 +9,8 @@ namespace binance.dex.sdk.test
 {
     public class NodeRpcTest
     {
+        private const string endpoint = "https://data-seed-pre-0-s1.binance.org";
+
         [Fact]
         public void JsonTest()
         {
@@ -20,9 +22,17 @@ namespace binance.dex.sdk.test
         [Fact]
         public void AbciInfoTest()
         {
-            NodeRpcClient nodeRpcClient = new NodeRpcClient("https://data-seed-pre-0-s1.binance.org");
-            ResponseData responseData = nodeRpcClient.AbcInfo();
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResponseData responseData = nodeRpcClient.AbciInfo();
             Assert.NotNull(responseData.Response.Data);
+        }
+
+        [Fact]
+        public void ConsensusStateTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            RoundStateData roundStateData = nodeRpcClient.ConsensusState();
+            Assert.NotNull(roundStateData.RoundState.HeightVoteSets[0]);
         }
     }
 }

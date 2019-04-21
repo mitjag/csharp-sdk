@@ -9,6 +9,7 @@ Project uses following NuGet packages:
 - NBitcoin
 - Google.Protobuf
 - RestSharp
+- Newtonsoft.Json
 - WebsocketRPC.Standalone
 
 SDK supports:
@@ -68,6 +69,6 @@ Example how to listen web socket stream:
 Example how to communicate with Node RPC:
 
 ``` cs
-	NodeRpcClient nodeRpcClient = new NodeRpcClient("https://data-seed-pre-0-s1.binance.org");
-	ResponseData responseData = nodeRpcClient.AbcInfo();
+    NodeRpcClient nodeRpcClient = new NodeRpcClient("https://data-seed-pre-0-s1.binance.org");
+    ResponseData responseData = nodeRpcClient.AbcInfo();
 ```

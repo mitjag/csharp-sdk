@@ -6,6 +6,18 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc
 {
+    public class Error
+    {
+        [JsonProperty("code")]
+        public long Code { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+
+        [JsonProperty("data")]
+        public string data { get; set; }
+    }
+
     public class RpcResponse <T> where T : IEndpointResponse, new()
     {
         /*
@@ -30,5 +42,8 @@ namespace binance.dex.sdk.noderpc
 
         [JsonProperty("result")]
         public T Result { get; set; }
+
+        [JsonProperty("error")]
+        public Error Error { get; set; }
     }
 }
