@@ -17,6 +17,7 @@ SDK supports:
 - Broadcast to Binance DEX chain
 - HTTP API (https://binance-chain.github.io/api-reference/dex-api/paths.html)
 - WebSockets Streams (https://binance-chain.github.io/api-reference/dex-api/ws-streams.html)
+- Node RPC (https://docs.binance.org/api-reference/node-rpc.html)
 
 Example how to transfer founds:
 
