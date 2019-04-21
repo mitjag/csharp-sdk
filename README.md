@@ -63,3 +63,10 @@ Example how to listen web socket stream:
         }
     }
 ```
+
+Example how to communicate with Node RPC:
+
+``` cs
+	NodeRpcClient nodeRpcClient = new NodeRpcClient("https://data-seed-pre-0-s1.binance.org");
+	ResponseData responseData = nodeRpcClient.AbcInfo();
+```
