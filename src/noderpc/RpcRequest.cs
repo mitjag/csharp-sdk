@@ -19,15 +19,15 @@ namespace binance.dex.sdk.noderpc
         */
 
         [JsonProperty("method")]
-        private string Method { get; set; }
+        public string Method { get; set; }
 
         [JsonProperty("jsonrpc")]
-        private string jsonrpc { get; set; }
+        public string JsonRpc { get; set; }
 
         [JsonProperty("params")]
-        private List<string> Params { get; set; }
+        public List<string> Params { get; set; }
 
         [JsonProperty("id")]
-        private string Id { get; set; }
+        public string Id { get; set; }
     }
 }
