@@ -21,6 +21,8 @@ namespace binance.dex.sdk.noderpc.endpoint
     }
 
     /*
+     * Get some info about the application. Return Type:
+     * 
         type ResponseInfo struct {
             Data                 string
             Version              string

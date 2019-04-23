@@ -45,14 +45,47 @@ namespace binance.dex.sdk.noderpc
             return response.Data.Result;
         }
 
+        /*
+            Available endpoints:
+                //data-seed-pre-0-s1.binance.org/abci_info
+                //data-seed-pre-0-s1.binance.org/consensus_state
+                //data-seed-pre-0-s1.binance.org/dump_consensus_state
+                //data-seed-pre-0-s1.binance.org/genesis
+                //data-seed-pre-0-s1.binance.org/health
+                //data-seed-pre-0-s1.binance.org/net_info
+                //data-seed-pre-0-s1.binance.org/num_unconfirmed_txs
+                //data-seed-pre-0-s1.binance.org/status
+         */
+
         public ResponseData AbciInfo()
         {
             return Execute<ResponseData>(AbciInfoRequest.Request);
         }
 
-        public RoundStateData ConsensusState()
+        public ConsensusRoundStateData ConsensusState()
         {
-            return Execute<RoundStateData>(ConsensusStateRequest.Request);
+            return Execute<ConsensusRoundStateData>(ConsensusStateRequest.Request);
         }
+
+        /*
+            Endpoints that require arguments:
+                //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_
+                //data-seed-pre-0-s1.binance.org/block?height=_
+                //data-seed-pre-0-s1.binance.org/block_by_hash?hash=_
+                //data-seed-pre-0-s1.binance.org/block_results?height=_
+                //data-seed-pre-0-s1.binance.org/blockchain?minHeight=_&maxHeight=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_async?tx=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_commit?tx=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_sync?tx=_
+                //data-seed-pre-0-s1.binance.org/commit?height=_
+                //data-seed-pre-0-s1.binance.org/consensus_params?height=_
+                //data-seed-pre-0-s1.binance.org/subscribe?query=_
+                //data-seed-pre-0-s1.binance.org/tx?hash=_&prove=_
+                //data-seed-pre-0-s1.binance.org/tx_search?query=_&prove=_&page=_&per_page=_
+                //data-seed-pre-0-s1.binance.org/unconfirmed_txs?limit=_
+                //data-seed-pre-0-s1.binance.org/unsubscribe?query=_
+                //data-seed-pre-0-s1.binance.org/unsubscribe_all?
+                //data-seed-pre-0-s1.binance.org/validators?height=_
+         */
     }
 }

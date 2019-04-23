@@ -31,7 +31,7 @@ namespace binance.dex.sdk.test
         public void ConsensusStateTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
-            RoundStateData roundStateData = nodeRpcClient.ConsensusState();
+            ConsensusRoundStateData roundStateData = nodeRpcClient.ConsensusState();
             Assert.NotNull(roundStateData.RoundState.HeightVoteSets[0]);
         }
     }

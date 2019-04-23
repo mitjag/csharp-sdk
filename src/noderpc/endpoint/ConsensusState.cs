@@ -21,6 +21,8 @@ namespace binance.dex.sdk.noderpc.endpoint
     }
 
     /*
+     * Return Parameters return round states
+     * 
         type ResultConsensusState struct {
             RoundState json.RawMessage `
         }
@@ -106,7 +108,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class HeightVoteSet
+    public class VoteSet
     {
         [JsonProperty("round")]
         public string Round { get; set; }
@@ -124,7 +126,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string PrecommitsBitArray { get; set; }
     }
 
-    public class RoundStateInfo
+    public class ConsensusRoundStateInfo
     {
         [JsonProperty("height/round/step")]
         public string HeightRoundStep { get; set; }
@@ -139,12 +141,12 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string LockedBlockHash { get; set; }
 
         [JsonProperty("height_vote_set")]
-        public List<HeightVoteSet> HeightVoteSets { get; set; }
+        public List<VoteSet> HeightVoteSets { get; set; }
     }
 
-    public class RoundStateData : IEndpointResponse
+    public class ConsensusRoundStateData : IEndpointResponse
     {
         [JsonProperty("round_state")]
-        public RoundStateInfo RoundState { get; set; }
+        public ConsensusRoundStateInfo RoundState { get; set; }
     }
 }
