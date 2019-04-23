@@ -67,6 +67,11 @@ namespace binance.dex.sdk.noderpc
             return Execute<ConsensusRoundStateData>(ConsensusStateRequest.Request);
         }
 
+        public DumpRoundStateData DumpConsensusState()
+        {
+            return Execute<DumpRoundStateData>(DumpConsensusStateRequest.Request);
+        }
+
         /*
             Endpoints that require arguments:
                 //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_
