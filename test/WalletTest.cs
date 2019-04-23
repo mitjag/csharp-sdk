@@ -1,4 +1,5 @@
 ﻿using binance.dex.sdk.crypto;
+using NBitcoin;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,5 +26,14 @@ namespace binance.dex.sdk.test
             Assert.Equal("tbnb18086qc9yxtk5ufddple8upf0k3072vvagpm2ml", wallet.Address);
         }
 
+        [Fact]
+        public void WordsTest()
+        {
+            string words = "slot live best metal mandate page hover tank bronze code salad hill hen salad train inmate autumn nut home city shield level board measure";
+            Mnemonic mnemonic = new Mnemonic(words, Wordlist.English);
+
+            //pk "db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54"
+            //address "tbnb12n2p6zcvgcpumyexqhnp3q9tc2327l39ycfnyk"
+        }
     }
 }

@@ -72,6 +72,11 @@ namespace binance.dex.sdk.noderpc
             return Execute<DumpRoundStateData>(DumpConsensusStateRequest.Request);
         }
 
+        public ResultNetInfo NetInfo()
+        {
+            return Execute<ResultNetInfo>(NetInfoRequest.Request);
+        }
+
         /*
             Endpoints that require arguments:
                 //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_

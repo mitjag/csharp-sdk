@@ -42,5 +42,13 @@ namespace binance.dex.sdk.test
             DumpRoundStateData dumpRoundStateData = nodeRpcClient.DumpConsensusState();
             Assert.NotNull(dumpRoundStateData.RoundState.Height);
         }
+
+        [Fact]
+        public void NetInfoTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultNetInfo resultNetInfo = nodeRpcClient.NetInfo();
+            Assert.NotNull(resultNetInfo.Peers[0].NodeInfo.Id);
+        }
     }
 }
