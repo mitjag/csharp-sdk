@@ -20,6 +20,49 @@ SDK supports:
 - WebSockets Streams (https://binance-chain.github.io/api-reference/dex-api/ws-streams.html)
 - Node RPC (https://docs.binance.org/api-reference/node-rpc.html)
 
+Wallet
+------
+
+Create wallet with private key string value either for TEST_NET or PROD:
+
+``` cs
+    Wallet wallet = new Wallet(
+        "6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09",
+        BinanceDexEnvironment.TEST_NET);
+```
+
+HttpApi
+-------
+
+HttpApi objects:
+- Times
+- Infos
+- Validator
+- Peer
+- Account
+- AccountSequence
+- Transaction
+- Token
+- Market
+- FeeData
+- MarketDepth
+- TransactionMetadata
+- KLines
+- OrderList
+- Order
+- TickerStatistics
+- TradePage
+- TxPage
+
+Broadcast objects:
+- CancelOrder
+- MultiTransfer
+- NewOrder
+- TokenFreeze
+- TokenUnfreeze
+- Transfer
+- Vote
+
 Example how to transfer founds:
 
 ``` cs
@@ -41,8 +84,24 @@ Example how to transfer founds:
     List<TransactionMetadata> result = httpApiClient.Broadcast(body);
 ```
 
-Example how to listen web socket stream:
+Web socket streams
+------------------
 
+Web socket stream objects:
+- OrdersData
+- AccountsData
+- TransfersData
+- TradesData
+- MarketDiff
+- MarketDepth
+- KLine
+- Ticker
+- AllTickersData
+- MiniTicker
+- AllMiniTickersData
+- Blockheight
+
+Example how to listen web socket stream:
 
 ``` cs
     public class Program
@@ -65,6 +124,15 @@ Example how to listen web socket stream:
         }
     }
 ```
+
+Node RPC
+--------
+
+Node RPC objects:
+- AbciInfo: ResponseData 
+- ConsensusState: ConsensusRoundStateData
+- DumpConsensusState: DumpRoundStateData
+- NetInfo: ResultNetInfo
 
 Example how to communicate with Node RPC:
 
