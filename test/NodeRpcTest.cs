@@ -58,5 +58,13 @@ namespace binance.dex.sdk.test
             ResultGenesis result = nodeRpcClient.Genesis();
             Assert.NotNull(result.Genesis);
         }
+
+        [Fact]
+        public void HealthTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultHealth result = nodeRpcClient.Health();
+            Assert.NotNull(result);
+        }
     }
 }

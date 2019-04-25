@@ -82,6 +82,11 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultGenesis>(GenesisRequest.Request);
         }
 
+        public ResultHealth Health()
+        {
+            return Execute<ResultHealth>(HealthRequest.Request);
+        }
+
         /*
             Endpoints that require arguments:
                 //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_
