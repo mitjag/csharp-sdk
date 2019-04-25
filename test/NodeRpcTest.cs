@@ -31,24 +31,32 @@ namespace binance.dex.sdk.test
         public void ConsensusStateTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
-            ConsensusRoundStateData roundStateData = nodeRpcClient.ConsensusState();
-            Assert.NotNull(roundStateData.RoundState.HeightVoteSets[0]);
+            ConsensusRoundStateData result = nodeRpcClient.ConsensusState();
+            Assert.NotNull(result.RoundState.HeightVoteSets[0]);
         }
 
         [Fact]
         public void DumpConsensusStateTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
-            DumpRoundStateData dumpRoundStateData = nodeRpcClient.DumpConsensusState();
-            Assert.NotNull(dumpRoundStateData.RoundState.Height);
+            DumpRoundStateData result = nodeRpcClient.DumpConsensusState();
+            Assert.NotNull(result.RoundState.Height);
         }
 
         [Fact]
         public void NetInfoTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
-            ResultNetInfo resultNetInfo = nodeRpcClient.NetInfo();
-            Assert.NotNull(resultNetInfo.Peers[0].NodeInfo.Id);
+            ResultNetInfo result = nodeRpcClient.NetInfo();
+            Assert.NotNull(result.Peers[0].NodeInfo.Id);
+        }
+
+        [Fact]
+        public void GenesisTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultGenesis result = nodeRpcClient.Genesis();
+            Assert.NotNull(result.Genesis);
         }
     }
 }

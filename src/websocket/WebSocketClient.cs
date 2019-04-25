@@ -215,7 +215,7 @@ namespace binance.dex.sdk.websocket
             IStreamData streamData = null;
             if (stream == websocket.stream.Topic.ToTopic(ETopic.Orders))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<Blockheight>>(message).Data;
+                streamData = JsonConvert.DeserializeObject<Payload<OrdersData>>(message).Data;
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.Accounts))
             {

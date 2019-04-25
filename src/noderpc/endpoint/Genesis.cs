@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -853,7 +855,330 @@ namespace binance.dex.sdk.noderpc.endpoint
           }
         }
     */
+
+    public class ResultGenesisConsensusParamsBlockSize
+    {
+        [JsonProperty("max_bytes")]
+        public string MaxBytes { get; set; }
+
+        [JsonProperty("max_gas")]
+        public string MaxGas { get; set; }
+    }
+
+    public class ResultGenesisConsensusParamsEvidence
+    {
+        [JsonProperty("max_age")]
+        public string MaxAge { get; set; }
+    }
+
+    public class ResultGenesisConsensusParamsValidator
+    {
+        [JsonProperty("pub_key_types")]
+        public List<string> PubKeyTypes { get; set; }
+    }
+
+    public class ResultGenesisConsensusParams
+    {
+        [JsonProperty("block_size")]
+        public ResultGenesisConsensusParamsBlockSize BlockSize { get; set; }
+
+        [JsonProperty("evidence")]
+        public ResultGenesisConsensusParamsEvidence Evidence { get; set; }
+
+        [JsonProperty("validator")]
+        public ResultGenesisConsensusParamsValidator Validator { get; set; }
+    }
+
+    public class ResultGenesisAppStateToken
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("symbol")]
+        public string Symbol { get; set; }
+
+        [JsonProperty("total_supply")]
+        public string TotalSupply { get; set; }
+
+        [JsonProperty("owner")]
+        public string Owner { get; set; }
+
+        [JsonProperty("mintable")]
+        public bool Mintable { get; set; }
+
+    }
+
+    public class ResultGenesisAppStateAccount
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("valaddr")]
+        public string Valaddr { get; set; }
+    }
+
+    public class ResultGenesisAppStateDex
+    {
+        // TODO  No example available
+    }
+
+    public class ResultGenesisAppStateParamFeeValueFixedFeeParams
+    {
+        [JsonProperty("msg_type")]
+        public string MsgType { get; set; }
+
+        [JsonProperty("fee")]
+        public string Fee { get; set; }
+
+        [JsonProperty("fee_for")]
+        public long FeeFor { get; set; }
+    }
+
+    public class ResultGenesisAppStateParamFeeValueDexFeeField
+    {
+        [JsonProperty("fee_name")]
+        public string FeeName { get; set; }
+
+        [JsonProperty("fee_value")]
+        public string FeeValue { get; set; }
+    }
+
+    public class ResultGenesisAppStateParamFeeValue
+    {
+        [JsonProperty("msg_type")]
+        public string MsgType { get; set; }
+
+        [JsonProperty("fee")]
+        public string Fee { get; set; }
+
+        [JsonProperty("fee_for")]
+        public long? FeeFor { get; set; }
+
+        [JsonProperty("fixed_fee_params")]
+        public ResultGenesisAppStateParamFeeValueFixedFeeParams FixedFeeParams { get; set; }
+
+        [JsonProperty("multi_transfer_fee")]
+        public string multi_transfer_fee { get; set; }
+
+        [JsonProperty("lower_limit_as_multi")]
+        public string LowerLimitAsMulti { get; set; }
+
+        [JsonProperty("dex_fee_fields")]
+        public List<ResultGenesisAppStateParamFeeValueDexFeeField> DexFeeFields { get; set; }
+    }
+
+    public class ResultGenesisAppStateParamFee
+    {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("value")]
+        public ResultGenesisAppStateParamFeeValue Value { get; set; }
+    }
+
+    public class ResultGenesisAppStateParam
+    {
+        [JsonProperty("fees")]
+        public List<ResultGenesisAppStateParamFee> Fees { get; set; }
+
+    }
+
+    public class ResultGenesisAppStateStakePool
+    {
+        [JsonProperty("loose_tokens")]
+        public string LooseTokens { get; set; }
+
+        [JsonProperty("bonded_tokens")]
+        public string BondedTokens { get; set; }
+
+    }
+
+    public class ResultGenesisAppStateStakeParams
+    {
+        [JsonProperty("unbonding_time")]
+        public string UnbondingTime { get; set; }
+
+        [JsonProperty("max_validators")]
+        public string MaxValidators { get; set; }
+
+        [JsonProperty("bond_denom")]
+        public string BondDenom { get; set; }
+    }
+
+    public class ResultGenesisAppStateStake
+    {
+        [JsonProperty("pool")]
+        public ResultGenesisAppStateStakePool Pool { get; set; }
+
+        [JsonProperty("params")]
+        public ResultGenesisAppStateStakeParams Params { get; set; }
+
+        [JsonProperty("validators")]
+        public string Validators { get; set; } // TODO no example data
+
+        [JsonProperty("bonds")]
+        public string Bonds { get; set; } // TODO no example data
+    }
+
+    public class ResultGenesisAppStateGovDepositPeriodMinDeposit
+    {
+        [JsonProperty("denom")]
+        public string Denom { get; set; }
+
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+    }
+
+    public class ResultGenesisAppStateGovDepositPeriod
+    {
+        [JsonProperty("min_deposit")]
+        public List<ResultGenesisAppStateGovDepositPeriodMinDeposit> MinDeposit { get; set; }
+
+        [JsonProperty("max_deposit_period")]
+        public string MaxDepositPeriod { get; set; }
+    }
+
+    public class ResultGenesisAppStateGovVotingPeroid
+    {
+        [JsonProperty("voting_period")]
+        public string VotingPeriod { get; set; }
+    }
+
+    public class ResultGenesisAppStateGovTallyingProcedure
+    {
+        [JsonProperty("threshold")]
+        public string Threshold { get; set; }
+
+        [JsonProperty("veto")]
+        public string Veto { get; set; }
+
+        [JsonProperty("governance_penalty")]
+        public string GovernancePenalty { get; set; }
+    }
+
+    public class ResultGenesisAppStateGov
+    {
+        [JsonProperty("starting_proposalID")]
+        public string StartingProposalID { get; set; }
+
+        [JsonProperty("deposit_period")]
+        public ResultGenesisAppStateGovDepositPeriod DepositPeriod { get; set; }
+
+        [JsonProperty("voting_period")]
+        public ResultGenesisAppStateGovVotingPeroid VotingPeriod { get; set; }
+
+        [JsonProperty("tallying_procedure")]
+        public ResultGenesisAppStateGovTallyingProcedure TallyingProcedure { get; set; }
+    }
+
+    public class ResultGenesisAppStateGentxValueMsg
+    {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonExtensionData, JsonProperty("value")]
+        private IDictionary<string, JToken> value;
+    }
+
+    public class ResultGenesisAppStateGentxValueSignaturePubKey
+    {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("value")]
+        public string Value { get; set; }
+    }
+
+    public class ResultGenesisAppStateGentxValueSignature
+    {
+        [JsonProperty("pub_key")]
+        public ResultGenesisAppStateGentxValueSignaturePubKey PubKey { get; set; }
+
+        [JsonProperty("signature")]
+        public string Signature { get; set; }
+
+        [JsonProperty("account_number")]
+        public string AccountNumber { get; set; }
+
+        [JsonProperty("sequence")]
+        public string Sequence { get; set; }
+    }
+
+    public class ResultGenesisAppStateGentxValue
+    {
+        [JsonProperty("msg")]
+        public List<ResultGenesisAppStateGentxValueMsg> Msg { get; set; }
+
+        [JsonProperty("signatures")]
+        public List<ResultGenesisAppStateGentxValueSignature> Signatures { get; set; }
+
+        [JsonProperty("memo")]
+        public string Memo { get; set; }
+
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
+        [JsonProperty("data")]
+        public string Data { get; set; }
+    }
+
+    public class ResultGenesisAppStateGentx
+    {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("value")]
+        public ResultGenesisAppStateGentxValue Value { get; set; }
+    }
+
+    public class ResultGenesisAppState
+    {
+        [JsonProperty("tokens")]
+        public List<ResultGenesisAppStateToken> Tokens { get; set; }
+
+        [JsonProperty("accounts")]
+        public List<ResultGenesisAppStateAccount> Accounts { get; set; }
+
+        [JsonProperty("dex")]
+        public ResultGenesisAppStateDex Dex { get; set; }
+
+        [JsonProperty("param")]
+        public ResultGenesisAppStateParam Param { get; set; }
+
+        [JsonProperty("stake")]
+        public ResultGenesisAppStateStake Stake { get; set; }
+
+        [JsonProperty("gov")]
+        public ResultGenesisAppStateGov Gov { get; set; }
+
+        [JsonProperty("gentxs")]
+        public List<ResultGenesisAppStateGentx> Gentxs { get; set; }
+    }
+
+    public class GenesisDoc
+    {
+        [JsonProperty("genesis_time")]
+        public string GenesisTime { get; set; }
+
+        [JsonProperty("chain_id")]
+        public string ChainId { get; set; }
+
+        [JsonProperty("consensus_params")]
+        public ResultGenesisConsensusParams ConsensusParams { get; set; }
+
+        [JsonProperty("app_hash")]
+        public string AppHash { get; set; }
+
+        [JsonProperty("app_state")]
+        public ResultGenesisAppState AppState { get; set; }
+    }
+
     public class ResultGenesis : IEndpointResponse
     {
+        [JsonProperty("genesis")]
+        public GenesisDoc Genesis { get; set; }
     }
 }
