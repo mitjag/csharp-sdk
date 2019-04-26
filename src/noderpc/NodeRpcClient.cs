@@ -99,6 +99,11 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultStatus>(StatusRequest.Request());
         }
 
+        public ResultBlock Block(long height)
+        {
+            return Execute<ResultBlock>(BlockRequest.Request(new BlockRequestArguments { Height = height }));
+        }
+
         /*
             Endpoints that require arguments:
                 //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_

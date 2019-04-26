@@ -90,5 +90,13 @@ namespace binance.dex.sdk.test
             ResultStatus result = nodeRpcClient.Status();
             Assert.NotNull(result.NodeInfo.ListenAddr);
         }
+
+        [Fact]
+        public void HeightTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultBlock result = nodeRpcClient.Block(10779111);
+            Assert.NotNull(result);
+        }
     }
 }
