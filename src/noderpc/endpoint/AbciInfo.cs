@@ -5,18 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class AbciInfoRequest
-    {
-        public static RpcRequest Request()
-        {
-            return new RpcRequest
-            {
-                Method = "abci_info",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
      * Get some info about the application. Return Type:
      * 
@@ -45,7 +33,7 @@ namespace binance.dex.sdk.noderpc.endpoint
 
     public class ResponseInfo
     {
-        [JsonProperty("data2")]
+        [JsonProperty("data")]
         public string Data { get; set; }
 
         [JsonProperty("version")]

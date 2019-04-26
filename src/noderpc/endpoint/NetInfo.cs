@@ -5,18 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class NetInfoRequest
-    {
-        public static RpcRequest Request()
-        {
-            return new RpcRequest
-            {
-                Method = "net_info",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
         * Get network info. Return Parameters
         *

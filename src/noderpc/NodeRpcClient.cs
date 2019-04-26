@@ -26,10 +26,8 @@ namespace binance.dex.sdk.noderpc
             restClient = new RestClient(endpoint).UseSerializer(() => new JsonNetSerializer());
         }
 
-        private T Execute<T>(RpcRequest rpcRequest) where T : IEndpointResponse, new()
+        private T Execute<T>(RestRequest request) where T : IEndpointResponse, new()
         {
-            RestRequest request = new RestRequest("", Method.POST);
-            request.AddJsonBody(rpcRequest);
             var response = restClient.Execute<RpcResponse<T>>(request);
             if (response.StatusCode != HttpStatusCode.OK || response.ErrorException != null)
             {
@@ -61,47 +59,60 @@ namespace binance.dex.sdk.noderpc
 
         public ResponseData AbciInfo()
         {
-            return Execute<ResponseData>(AbciInfoRequest.Request());
+            RestRequest request = new RestRequest("abci_info", Method.GET);
+            return Execute<ResponseData>(request);
         }
 
         public ConsensusRoundStateData ConsensusState()
         {
-            return Execute<ConsensusRoundStateData>(ConsensusStateRequest.Request());
+            RestRequest request = new RestRequest("consensus_state", Method.GET);
+            return Execute<ConsensusRoundStateData>(request);
         }
 
         public DumpRoundStateData DumpConsensusState()
         {
-            return Execute<DumpRoundStateData>(DumpConsensusStateRequest.Request());
+            RestRequest request = new RestRequest("dump_consensus_state", Method.GET);
+            return Execute<DumpRoundStateData>(request);
         }
 
         public ResultNetInfo NetInfo()
         {
-            return Execute<ResultNetInfo>(NetInfoRequest.Request());
+            RestRequest request = new RestRequest("net_info", Method.GET);
+            return Execute<ResultNetInfo>(request);
         }
 
         public ResultGenesis Genesis()
         {
-            return Execute<ResultGenesis>(GenesisRequest.Request());
+            RestRequest request = new RestRequest("genesis", Method.GET);
+            return Execute<ResultGenesis>(request);
         }
 
         public ResultHealth Health()
         {
-            return Execute<ResultHealth>(HealthRequest.Request());
+            RestRequest request = new RestRequest("health", Method.GET);
+            return Execute<ResultHealth>(request);
         }
 
         public ResultUnconfirmedTxs NumUnconfirmedTxs()
         {
-            return Execute<ResultUnconfirmedTxs>(NumUnconfirmedTxsRequest.Request());
+            RestRequest request = new RestRequest("num_unconfirmed_txs", Method.GET);
+            return Execute<ResultUnconfirmedTxs>(request);
         }
 
         public ResultStatus Status()
         {
-            return Execute<ResultStatus>(StatusRequest.Request());
+            RestRequest request = new RestRequest("status", Method.GET);
+            return Execute<ResultStatus>(request);
         }
 
-        public ResultBlock Block(long height)
+        public ResultBlock Block(long? height = null)
         {
-            return Execute<ResultBlock>(BlockRequest.Request(new BlockRequestArguments { Height = height }));
+            RestRequest request = new RestRequest("block", Method.GET);
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.Value.ToString());
+            }
+            return Execute<ResultBlock>(request);
         }
 
         /*

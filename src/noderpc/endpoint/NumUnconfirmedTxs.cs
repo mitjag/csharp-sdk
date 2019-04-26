@@ -6,23 +6,11 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class NumUnconfirmedTxsRequest
-    {
-        /// <summary>
-        /// limit 	int 	30 	false 	Maximum number of entries (max: 100)
-        /// </summary>
-        /// <returns></returns>
-        public static RpcRequest Request(int limit = 30)
-        {
-            return new RpcRequest
-            {
-                Method = "num_unconfirmed_txs",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
+        Get number of unconfirmed transactions. Query Parameters
+        Parameter 	Type 	Default 	Required 	Description
+        limit 	int 	30 	false 	Maximum number of entries (max: 100)
+            
         Return Parameters
 
         // List of mempool txs
@@ -34,16 +22,16 @@ namespace binance.dex.sdk.noderpc.endpoint
 
     /*
         {
-          "jsonrpc": "2.0",
-          "id": "",
-          "result": {
+            "jsonrpc": "2.0",
+            "id": "",
+            "result": {
             "n_txs": "0",
             "txs": null
-          }
+            }
         }
     */
 
-    public class ResultUnconfirmedTxs : IEndpointResponse
+        public class ResultUnconfirmedTxs : IEndpointResponse
     {
         [JsonProperty("n_txs")]
         public string NTxs { get; set; }

@@ -11,20 +11,6 @@ namespace binance.dex.sdk.noderpc.endpoint
         public long Height { get; set; }
     }
 
-    public class BlockRequest
-    {
-        public static RpcRequest Request(BlockRequestArguments arguments)
-        {
-            return new RpcRequest
-            {
-                Method = "block",
-                JsonRpc = "2.0",
-                //Params = new List<string> { JsonConvert.SerializeObject(arguments) }
-                Params = new List<string> { arguments.Height.ToString() }
-            };
-        }
-    }
-
     /*
         Get block at a given height. If no height is provided, it will fetch the latest block.
 

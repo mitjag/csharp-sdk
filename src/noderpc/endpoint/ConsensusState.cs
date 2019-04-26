@@ -5,18 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class ConsensusStateRequest
-    {
-        public static RpcRequest Request()
-        {
-            return new RpcRequest
-            {
-                Method = "consensus_state",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
      * Return Parameters return round states
      * 

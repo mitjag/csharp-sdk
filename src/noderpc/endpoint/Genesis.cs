@@ -6,18 +6,6 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class GenesisRequest
-    {
-        public static RpcRequest Request()
-        {
-            return new RpcRequest
-            {
-                Method = "genesis",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
      * Get genesis file. Return Parameters return round states
      *

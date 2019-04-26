@@ -5,18 +5,6 @@ using System.Text;
 
 namespace binance.dex.sdk.noderpc.endpoint
 {
-    public class StatusRequest
-    {
-        public static RpcRequest Request()
-        {
-            return new RpcRequest
-            {
-                Method = "status",
-                JsonRpc = "2.0"
-            };
-        }
-    }
-
     /*
         Get Tendermint status including node info, pubkey, latest block hash, app hash, block height and time. Return Parameters
 
