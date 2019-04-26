@@ -7,16 +7,13 @@ namespace binance.dex.sdk.noderpc.endpoint
 {
     public class ConsensusStateRequest
     {
-        public static RpcRequest Request
+        public static RpcRequest Request()
         {
-            get
+            return new RpcRequest
             {
-                return new RpcRequest
-                {
-                    Method = "consensus_state",
-                    JsonRpc = "2.0"
-                };
-            }
+                Method = "consensus_state",
+                JsonRpc = "2.0"
+            };
         }
     }
 

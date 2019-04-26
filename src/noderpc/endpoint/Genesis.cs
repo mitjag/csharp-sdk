@@ -8,16 +8,13 @@ namespace binance.dex.sdk.noderpc.endpoint
 {
     public class GenesisRequest
     {
-        public static RpcRequest Request
+        public static RpcRequest Request()
         {
-            get
+            return new RpcRequest
             {
-                return new RpcRequest
-                {
-                    Method = "genesis",
-                    JsonRpc = "2.0"
-                };
-            }
+                Method = "genesis",
+                JsonRpc = "2.0"
+            };
         }
     }
 
@@ -1080,7 +1077,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Type { get; set; }
 
         [JsonExtensionData, JsonProperty("value")]
-        private IDictionary<string, JToken> value;
+        public IDictionary<string, JToken> Value;
     }
 
     public class ResultGenesisAppStateGentxValueSignaturePubKey

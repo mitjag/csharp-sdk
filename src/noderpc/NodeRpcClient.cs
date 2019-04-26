@@ -38,9 +38,11 @@ namespace binance.dex.sdk.noderpc
                 {
                     message += $" ErrorException: {response.ErrorException}";
                 }
-                IDeserializer deserializer = new JsonDeserializer();
-                Error error = deserializer.Deserialize<Error>(response);
-                throw new NodeRpcException(message, response.ErrorException, error);
+                throw new NodeRpcException(message, response.ErrorException, response.Data?.Error);
+            }
+            if (response.Data.Error != null)
+            {
+                throw new NodeRpcException("Error received code: " + response.Data.Error.Code + " message: " + response.Data.Error.Message + " data: " + response.Data.Error.Data, response.Data.Error);
             }
             return response.Data.Result;
         }
@@ -59,32 +61,42 @@ namespace binance.dex.sdk.noderpc
 
         public ResponseData AbciInfo()
         {
-            return Execute<ResponseData>(AbciInfoRequest.Request);
+            return Execute<ResponseData>(AbciInfoRequest.Request());
         }
 
         public ConsensusRoundStateData ConsensusState()
         {
-            return Execute<ConsensusRoundStateData>(ConsensusStateRequest.Request);
+            return Execute<ConsensusRoundStateData>(ConsensusStateRequest.Request());
         }
 
         public DumpRoundStateData DumpConsensusState()
         {
-            return Execute<DumpRoundStateData>(DumpConsensusStateRequest.Request);
+            return Execute<DumpRoundStateData>(DumpConsensusStateRequest.Request());
         }
 
         public ResultNetInfo NetInfo()
         {
-            return Execute<ResultNetInfo>(NetInfoRequest.Request);
+            return Execute<ResultNetInfo>(NetInfoRequest.Request());
         }
 
         public ResultGenesis Genesis()
         {
-            return Execute<ResultGenesis>(GenesisRequest.Request);
+            return Execute<ResultGenesis>(GenesisRequest.Request());
         }
 
         public ResultHealth Health()
         {
-            return Execute<ResultHealth>(HealthRequest.Request);
+            return Execute<ResultHealth>(HealthRequest.Request());
+        }
+
+        public ResultUnconfirmedTxs NumUnconfirmedTxs()
+        {
+            return Execute<ResultUnconfirmedTxs>(NumUnconfirmedTxsRequest.Request());
+        }
+
+        public ResultStatus Status()
+        {
+            return Execute<ResultStatus>(StatusRequest.Request());
         }
 
         /*

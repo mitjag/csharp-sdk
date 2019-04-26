@@ -66,5 +66,29 @@ namespace binance.dex.sdk.test
             ResultHealth result = nodeRpcClient.Health();
             Assert.NotNull(result);
         }
+
+        /*[Fact]
+        public void NodeRpcExceptionTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultUnconfirmedTxs result;
+            Assert.Throws<NodeRpcException>(() => result = nodeRpcClient.NumUnconfirmedTxs());
+        }*/
+
+        [Fact]
+        public void NumUnconfirmedTxsTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultUnconfirmedTxs result = nodeRpcClient.NumUnconfirmedTxs();
+            Assert.NotNull(result.NTxs);
+        }
+
+        [Fact]
+        public void StatusTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultStatus result = nodeRpcClient.Status();
+            Assert.NotNull(result.NodeInfo.ListenAddr);
+        }
     }
 }

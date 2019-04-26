@@ -7,16 +7,13 @@ namespace binance.dex.sdk.noderpc.endpoint
 {
     public class AbciInfoRequest
     {
-        public static RpcRequest Request
+        public static RpcRequest Request()
         {
-            get
+            return new RpcRequest
             {
-                return new RpcRequest
-                {
-                    Method = "abci_info",
-                    JsonRpc = "2.0"
-                };
-            }
+                Method = "abci_info",
+                JsonRpc = "2.0"
+            };
         }
     }
 

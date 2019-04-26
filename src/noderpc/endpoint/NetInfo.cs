@@ -7,16 +7,13 @@ namespace binance.dex.sdk.noderpc.endpoint
 {
     public class NetInfoRequest
     {
-        public static RpcRequest Request
+        public static RpcRequest Request()
         {
-            get
+            return new RpcRequest
             {
-                return new RpcRequest
-                {
-                    Method = "net_info",
-                    JsonRpc = "2.0"
-                };
-            }
+                Method = "net_info",
+                JsonRpc = "2.0"
+            };
         }
     }
 
@@ -1000,7 +997,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class NetInfoPeerNodeInfoProtocolVersion
+    public class NodeInfoProtocolVersion
     {
         [JsonProperty("p2p")]
         public string p2p { get; set; }
@@ -1012,7 +1009,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string App { get; set; }
     }
 
-    public class NetInfoPeerNodeInfoOther
+    public class NodeInfoOther
     {
         [JsonProperty("tx_index")]
         public string TxIndex { get; set; }
@@ -1021,10 +1018,10 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string RpcAddress { get; set; }
     }
 
-    public class NetInfoPeerNodeInfo
+    public class NodeInfo
     {
         [JsonProperty("protocol_version")]
-        public NetInfoPeerNodeInfoProtocolVersion ProtocolVersion { get; set; }
+        public NodeInfoProtocolVersion ProtocolVersion { get; set; }
 
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -1045,7 +1042,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Moniker { get; set; }
 
         [JsonProperty("other")]
-        public NetInfoPeerNodeInfoOther Other { get; set; }
+        public NodeInfoOther Other { get; set; }
     }
 
     public class NetInfoPeerConnectionStatusMonitor
@@ -1126,7 +1123,7 @@ namespace binance.dex.sdk.noderpc.endpoint
     public class NetInfoPeer
     {
         [JsonProperty("node_info")]
-        public NetInfoPeerNodeInfo NodeInfo { get; set; }
+        public NodeInfo NodeInfo { get; set; }
 
         [JsonProperty("is_outbound")]
         public bool IsOutbound { get; set; }

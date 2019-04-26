@@ -15,7 +15,11 @@ namespace binance.dex.sdk.noderpc
         public string Message { get; set; }
 
         [JsonProperty("data")]
-        public string data { get; set; }
+        public string Data { get; set; }
+    }
+
+    public class NoResult : IEndpointResponse
+    {
     }
 
     public class RpcResponse <T> where T : IEndpointResponse, new()
