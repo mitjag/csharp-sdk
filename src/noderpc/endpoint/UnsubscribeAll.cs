@@ -7,7 +7,7 @@ namespace binance.dex.sdk.noderpc.endpoint
     /// <summary>
     /// Websocket API
     /// </summary>
-    class UnsubscribeAll
+    public class UnsubscribeAll
     {
     }
 }

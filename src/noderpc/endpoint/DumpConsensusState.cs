@@ -1298,7 +1298,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public DumpValidator Proposer { get; set; }
     }
 
-    public class DumpBlockIdPart
+    public class BlockIdPart
     {
         [JsonProperty("total")]
         public string Total { get; set; }
@@ -1307,13 +1307,13 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Hash { get; set; }
     }
 
-    public class DumpBlockId
+    public class BlockId
     {
         [JsonProperty("hash")]
         public string Hash { get; set; }
 
         [JsonProperty("parts")]
-        public DumpBlockIdPart Parts { get; set; }
+        public BlockIdPart Parts { get; set; }
     }
 
     public class DumpProposal
@@ -1331,7 +1331,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string PolRound { get; set; }
 
         [JsonProperty("block_id")]
-        public DumpBlockId BlockId { get; set; }
+        public BlockId BlockId { get; set; }
 
         [JsonProperty("timestamp")]
         public string Timestamp { get; set; }
@@ -1340,7 +1340,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Signature { get; set; }
     }
 
-    public class DumpBlockHeaderVersion
+    public class BlockHeaderVersion
     {
         [JsonProperty("block")]
         public string Block { get; set; }
@@ -1349,10 +1349,10 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string App { get; set; }
     }
 
-    public class DumpBlockHeader
+    public class BlockHeader
     {
         [JsonProperty("version")]
-        public DumpBlockHeaderVersion Version { get; set; }
+        public BlockHeaderVersion Version { get; set; }
 
         [JsonProperty("chain_id")]
         public string ChainId { get; set; }
@@ -1370,7 +1370,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string TotalTxs { get; set; }
 
         [JsonProperty("last_block_id")]
-        public DumpBlockId LastBlockId { get; set; }
+        public BlockId LastBlockId { get; set; }
 
         [JsonProperty("last_commit_hash")]
         public string LastCommitHash { get; set; }
@@ -1400,19 +1400,19 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string ProposerAddress { get; set; }
     }
 
-    public class DumpBlockData
+    public class BlockData
     {
         [JsonProperty("txs")]
         public List<string> Txs { get; set; } // TODO No example available
     }
 
-    public class DumpBlockEvidence
+    public class BlockEvidence
     {
         [JsonProperty("evidence")]
         public string Evidence { get; set; } // TODO  No example available
     }
 
-    public class DumpBlockLastCommitPrecommit
+    public class BlockLastCommitPrecommit
     {
         [JsonProperty("type")]
         public int Type { get; set; }
@@ -1424,7 +1424,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Round { get; set; }
 
         [JsonProperty("block_id")]
-        public DumpBlockId BlockId { get; set; }
+        public BlockId BlockId { get; set; }
 
         [JsonProperty("timestamp")]
         public string Timestamp { get; set; }
@@ -1439,28 +1439,28 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Signature { get; set; }
     }
 
-    public class DumpBlockLastCommit
+    public class BlockLastCommit
     {
         [JsonProperty("block_id")]
-        public DumpBlockId BlockId { get; set; }
+        public BlockId BlockId { get; set; }
 
         [JsonProperty("precommits")]
-        public List<DumpBlockLastCommitPrecommit> Precommits { get; set; }
+        public List<BlockLastCommitPrecommit> Precommits { get; set; }
     }
 
-    public class DumpBlock
+    public class Block
     {
         [JsonProperty("header")]
-        public DumpBlockHeader Header { get; set; }
+        public BlockHeader Header { get; set; }
 
         [JsonProperty("data")]
-        public DumpBlockData Data { get; set; }
+        public BlockData Data { get; set; }
 
         [JsonProperty("evidence")]
-        public DumpBlockEvidence Evidence { get; set; }
+        public BlockEvidence Evidence { get; set; }
 
         [JsonProperty("last_commit")]
-        public DumpBlockLastCommit LastCommit { get; set; }
+        public BlockLastCommit LastCommit { get; set; }
     }
 
     public class DumpBlockParts
@@ -1514,7 +1514,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public DumpProposal Proposal { get; set; }
 
         [JsonProperty("proposal_block")]
-        public DumpBlock ProposalBlock { get; set; }
+        public Block ProposalBlock { get; set; }
 
         [JsonProperty("proposal_block_parts")]
         public DumpBlockParts ProposalBlockParts { get; set; }
@@ -1523,7 +1523,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string LockedRound { get; set; }
 
         [JsonProperty("locked_block")]
-        public DumpBlock LockedBlock { get; set; }
+        public Block LockedBlock { get; set; }
 
         [JsonProperty("locked_block_parts")]
         public DumpBlockParts LockedBlockParts { get; set; }
@@ -1532,7 +1532,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string ValidRound { get; set; }
 
         [JsonProperty("valid_block")]
-        public DumpBlock ValidBlock { get; set; }
+        public Block ValidBlock { get; set; }
 
         [JsonProperty("valid_block_parts")]
         public DumpBlockParts ValidBlockParts { get; set; }

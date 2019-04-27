@@ -92,11 +92,27 @@ namespace binance.dex.sdk.test
         }
 
         [Fact]
-        public void HeightTest()
+        public void AbciQueryTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultAbciQuery response = nodeRpcClient.AbciQuery(EAbciQueryPath.StoreAccKey, "0x6163636F756E743A89F856CB39D25C1BDDAAEC74A381577CA8E2F886");
+            Assert.NotNull(response.Response.Value);
+        }
+
+        [Fact]
+        public void AbciQueryTokenListTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultAbciQuery response = nodeRpcClient.AbciQueryTokenList();
+            Assert.NotNull(response.Response.Value);
+        }
+
+        [Fact]
+        public void BlockTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
             ResultBlock result = nodeRpcClient.Block(10779111);
-            Assert.NotNull(result);
+            Assert.NotNull(result.Block.Header.ChainId);
         }
     }
 }

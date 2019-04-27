@@ -38,7 +38,21 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
+    public class BlockMeta
+    {
+        [JsonProperty("block_Id")]
+        public BlockId BlockId { get; set; }
+
+        [JsonProperty("header")]
+        public BlockHeader Header { get; set; }
+    }
+
     public class ResultBlock : IEndpointResponse
     {
+        [JsonProperty("block_meta")]
+        public BlockMeta BlockMeta { get; set; }
+
+        [JsonProperty("block")]
+        public Block Block { get; set; }
     }
 }

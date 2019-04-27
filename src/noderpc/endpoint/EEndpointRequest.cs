@@ -6,6 +6,6 @@ namespace binance.dex.sdk.noderpc.endpoint
 {
     public enum EEndpointRequest
     {
-        AbciInfo, ConsensusState, DumpConsesusState, NetInfo, Genesis
+        AbciInfo, ConsensusState, DumpConsesusState, NetInfo, Genesis, Health, NumUnconfirmedTxs, Status
     }
 }

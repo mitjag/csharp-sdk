@@ -28,6 +28,7 @@ namespace binance.dex.sdk.noderpc
 
         private T Execute<T>(RestRequest request) where T : IEndpointResponse, new()
         {
+            request.RequestFormat = DataFormat.Json;
             var response = restClient.Execute<RpcResponse<T>>(request);
             if (response.StatusCode != HttpStatusCode.OK || response.ErrorException != null)
             {
@@ -105,6 +106,44 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultStatus>(request);
         }
 
+        /// <summary>
+        /// Available Query Path /store/acc/key /tokens/info /tokens/list /dex/pairs /dex/orderbook /param/fees 
+        /// </summary>
+        public ResultAbciQuery AbciQuery(string path, string data = null, long height = 0, bool prove = false)
+        {
+            RestRequest request = new RestRequest("abci_query", Method.GET);
+
+            return Execute<ResultAbciQuery>(request);
+        }
+
+        public ResultAbciQuery AbciQuery(EAbciQueryPath abciQueryPath, string data = null, long height = 0, bool prove = false )
+        {
+            RestRequest request = new RestRequest("abci_query", Method.GET);
+            request.AddQueryParameter("path", "\"" + endpoint.AbciQuery.ToAbciQueryPath(abciQueryPath) + "\"");
+            if (data != null)
+            {
+                request.AddQueryParameter("data", data);
+            }
+            if (height != 0)
+            {
+                request.AddQueryParameter("height", height.ToString());
+            }
+            if (prove)
+            {
+                request.AddQueryParameter("prove", "true");
+            }
+            return Execute<ResultAbciQuery>(request);
+        }
+
+        public ResultAbciQuery AbciQueryTokenList(int offset = 0, int limit = 10)
+        {
+            RestRequest request = new RestRequest("abci_query", Method.GET);
+            string path = string.Format($"\"{endpoint.AbciQuery.ToAbciQueryPath(EAbciQueryPath.TokensList)}/{offset}/{limit}\"");
+            request.AddQueryParameter("path", path);
+            return Execute<ResultAbciQuery>(request);
+        }
+
+
         public ResultBlock Block(long? height = null)
         {
             RestRequest request = new RestRequest("block", Method.GET);
@@ -114,6 +153,30 @@ namespace binance.dex.sdk.noderpc
             }
             return Execute<ResultBlock>(request);
         }
+
+        public void BlockResults()
+        { }
+
+        public void Blockchain()
+        { }
+        
+        public void Commit()
+        { }
+
+        public void Tx()
+        { }
+
+        public void TxSearch()
+        { }
+
+        public void BroadcastTxAsync()
+        { }
+
+        public void BroadcastTxCommit()
+        { }
+
+        public void BroadcastTxSync()
+        { }
 
         /*
             Endpoints that require arguments:
