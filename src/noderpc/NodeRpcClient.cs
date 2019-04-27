@@ -154,11 +154,23 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultBlock>(request);
         }
 
-        public void BlockResults()
-        { }
+        public ResultBlockResults BlockResults(long? height = null)
+        {
+            RestRequest request = new RestRequest("block_results", Method.GET);
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.Value.ToString());
+            }
+            return Execute<ResultBlockResults>(request);
+        }
 
-        public void Blockchain()
-        { }
+        public ResultBlockchainInfo Blockchain(long minHeight, long maxHeight)
+        {
+            RestRequest request = new RestRequest("blockchain", Method.GET);
+            request.AddQueryParameter("minHeight", minHeight.ToString());
+            request.AddQueryParameter("maxHeight", maxHeight.ToString());
+            return Execute<ResultBlockchainInfo>(request);
+        }
         
         public void Commit()
         { }

@@ -114,5 +114,21 @@ namespace binance.dex.sdk.test
             ResultBlock result = nodeRpcClient.Block(10779111);
             Assert.NotNull(result.Block.Header.ChainId);
         }
+
+        [Fact]
+        public void BlockResultsTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultBlockResults result = nodeRpcClient.BlockResults(10779111);
+            Assert.NotNull(result.Results.BeginBlock);
+        }
+
+        [Fact]
+        public void BlockchainTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultBlockchainInfo result = nodeRpcClient.Blockchain(10, 11);
+            Assert.NotNull(result.BlockMetas[0].Header.ChainId);
+        }
     }
 }
