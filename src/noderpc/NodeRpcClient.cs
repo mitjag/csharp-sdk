@@ -219,8 +219,16 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultConsensusParams>(request);
         }
 
-        public void Tx()
-        { }
+        public ResultTx Tx(string hash, bool prove = false)
+        {
+            RestRequest request = new RestRequest("tx", Method.GET);
+            request.AddQueryParameter("hash", hash);
+            if (prove)
+            {
+                request.AddQueryParameter("prove", "true");
+            }
+            return Execute<ResultTx>(request);
+        }
 
         public void TxSearch()
         { }

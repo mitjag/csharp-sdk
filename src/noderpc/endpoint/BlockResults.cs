@@ -19,7 +19,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class DeliverTxTag
+    public class TxTag
     {
         [JsonProperty("key")]
         public string Key { get; set; }
@@ -28,7 +28,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Value { get; set; }
     }
 
-    public class DeliverTx
+    public class Tx
     {
         [JsonProperty("data")]
         public string Data { get; set; }
@@ -36,8 +36,8 @@ namespace binance.dex.sdk.noderpc.endpoint
         [JsonProperty("log")]
         public string Log { get; set; }
 
-        [JsonProperty("validator_updates")]
-        public List<DeliverTxTag> Tags { get; set; }
+        [JsonProperty("tags")]
+        public List<TxTag> Tags { get; set; }
     }
 
     public class EndBlock
@@ -53,7 +53,7 @@ namespace binance.dex.sdk.noderpc.endpoint
     public class Results
     {
         [JsonProperty("DeliverTx")]
-        public List<DeliverTx> DeliverTx { get; set; }
+        public List<Tx> DeliverTx { get; set; }
         
         [JsonProperty("EndBlock")]
         public EndBlock EndBlock { get; set; }

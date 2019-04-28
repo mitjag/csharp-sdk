@@ -155,7 +155,13 @@ namespace binance.dex.sdk.test
             Assert.NotNull(result.ConsensusParams.Evidence.MaxAge);
         }
 
-
+        [Fact]
+        public void TxTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultTx result = nodeRpcClient.Tx("0xAB1B84C7C0B0B195941DCE9CFE1A54214B72D5DB54AD388D8B146A6B62911E8E", true);
+            Assert.NotNull(result.TxResult.Data);
+        }
 
         [Fact]
         public void UnconfirmedTxsTest()
