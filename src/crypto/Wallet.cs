@@ -76,7 +76,6 @@ namespace binance.dex.sdk.crypto
             }
         }
 
-
         public void ReloadAccountSequence()
         {
             AccountSequence accountSequence = client.AccountSequence(Address);

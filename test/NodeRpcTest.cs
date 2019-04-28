@@ -79,7 +79,7 @@ namespace binance.dex.sdk.test
         public void NumUnconfirmedTxsTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
-            ResultUnconfirmedTxs result = nodeRpcClient.NumUnconfirmedTxs();
+            ResultNumUnconfirmedTxs result = nodeRpcClient.NumUnconfirmedTxs();
             Assert.NotNull(result.NTxs);
         }
 
@@ -116,6 +116,14 @@ namespace binance.dex.sdk.test
         }
 
         [Fact]
+        public void BlockByHashTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultBlock result = nodeRpcClient.BlockByHash("0x989A3A075B6168A5B0F9B75F69BC71608E65D7A8A632F0D462AD311A646923ED");
+            Assert.NotNull(result.Block.Header.ChainId);
+        }
+
+        [Fact]
         public void BlockResultsTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
@@ -129,6 +137,26 @@ namespace binance.dex.sdk.test
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
             ResultBlockchainInfo result = nodeRpcClient.Blockchain(10, 11);
             Assert.NotNull(result.BlockMetas[0].Header.ChainId);
+        }
+
+
+
+
+
+        [Fact]
+        public void UnconfirmedTxsTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultUnconfirmedTxs result = nodeRpcClient.UnconfirmedTxs();
+            Assert.NotNull(result.NTxs);
+        }
+
+        [Fact]
+        public void ValidatorsTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultValidators result = nodeRpcClient.Validators(10779111);
+            Assert.NotNull(result.Validators[0].Address);
         }
     }
 }

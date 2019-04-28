@@ -47,7 +47,7 @@ namespace binance.dex.sdk.noderpc
         }
 
         /*
-            Available endpoints:
+         * Available endpoints:
                 //data-seed-pre-0-s1.binance.org/abci_info
                 //data-seed-pre-0-s1.binance.org/consensus_state
                 //data-seed-pre-0-s1.binance.org/dump_consensus_state
@@ -94,10 +94,10 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultHealth>(request);
         }
 
-        public ResultUnconfirmedTxs NumUnconfirmedTxs()
+        public ResultNumUnconfirmedTxs NumUnconfirmedTxs()
         {
             RestRequest request = new RestRequest("num_unconfirmed_txs", Method.GET);
-            return Execute<ResultUnconfirmedTxs>(request);
+            return Execute<ResultNumUnconfirmedTxs>(request);
         }
 
         public ResultStatus Status()
@@ -105,6 +105,27 @@ namespace binance.dex.sdk.noderpc
             RestRequest request = new RestRequest("status", Method.GET);
             return Execute<ResultStatus>(request);
         }
+
+        /*
+         * Endpoints that require arguments:
+                //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_
+                //data-seed-pre-0-s1.binance.org/block?height=_
+                //data-seed-pre-0-s1.binance.org/block_by_hash?hash=_
+                //data-seed-pre-0-s1.binance.org/block_results?height=_
+                //data-seed-pre-0-s1.binance.org/blockchain?minHeight=_&maxHeight=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_async?tx=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_commit?tx=_
+                //data-seed-pre-0-s1.binance.org/broadcast_tx_sync?tx=_
+                //data-seed-pre-0-s1.binance.org/commit?height=_
+                //data-seed-pre-0-s1.binance.org/consensus_params?height=_
+                //data-seed-pre-0-s1.binance.org/subscribe?query=_
+                //data-seed-pre-0-s1.binance.org/tx?hash=_&prove=_
+                //data-seed-pre-0-s1.binance.org/tx_search?query=_&prove=_&page=_&per_page=_
+                //data-seed-pre-0-s1.binance.org/unconfirmed_txs?limit=_
+                //data-seed-pre-0-s1.binance.org/unsubscribe?query=_
+                //data-seed-pre-0-s1.binance.org/unsubscribe_all?
+                //data-seed-pre-0-s1.binance.org/validators?height=_
+        */
 
         /// <summary>
         /// Available Query Path /store/acc/key /tokens/info /tokens/list /dex/pairs /dex/orderbook /param/fees 
@@ -143,7 +164,6 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultAbciQuery>(request);
         }
 
-
         public ResultBlock Block(long? height = null)
         {
             RestRequest request = new RestRequest("block", Method.GET);
@@ -151,6 +171,13 @@ namespace binance.dex.sdk.noderpc
             {
                 request.AddQueryParameter("height", height.Value.ToString());
             }
+            return Execute<ResultBlock>(request);
+        }
+
+        public ResultBlock BlockByHash(string hash)
+        {
+            RestRequest request = new RestRequest("block_by_hash", Method.GET);
+            request.AddQueryParameter("hash", hash);
             return Execute<ResultBlock>(request);
         }
 
@@ -175,11 +202,39 @@ namespace binance.dex.sdk.noderpc
         public void Commit()
         { }
 
+        public void ConsensusParams()
+        { }
+
         public void Tx()
         { }
 
         public void TxSearch()
         { }
+
+        public ResultUnconfirmedTxs UnconfirmedTxs(int? limit = null)
+        {
+            RestRequest request = new RestRequest("unconfirmed_txs", Method.GET);
+            if (limit.HasValue)
+            {
+                request.AddQueryParameter("limit", limit.Value.ToString());
+            }
+
+            return Execute<ResultUnconfirmedTxs>(request);
+        }
+
+        public ResultValidators Validators(long? height = null)
+        {
+            RestRequest request = new RestRequest("validators", Method.GET);
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.Value.ToString());
+            }
+            return Execute<ResultValidators>(request);
+        }
+
+        /*
+         * Broadcast endpoints
+         */
 
         public void BroadcastTxAsync()
         { }
@@ -189,26 +244,5 @@ namespace binance.dex.sdk.noderpc
 
         public void BroadcastTxSync()
         { }
-
-        /*
-            Endpoints that require arguments:
-                //data-seed-pre-0-s1.binance.org/abci_query?path=_&data=_&height=_&prove=_
-                //data-seed-pre-0-s1.binance.org/block?height=_
-                //data-seed-pre-0-s1.binance.org/block_by_hash?hash=_
-                //data-seed-pre-0-s1.binance.org/block_results?height=_
-                //data-seed-pre-0-s1.binance.org/blockchain?minHeight=_&maxHeight=_
-                //data-seed-pre-0-s1.binance.org/broadcast_tx_async?tx=_
-                //data-seed-pre-0-s1.binance.org/broadcast_tx_commit?tx=_
-                //data-seed-pre-0-s1.binance.org/broadcast_tx_sync?tx=_
-                //data-seed-pre-0-s1.binance.org/commit?height=_
-                //data-seed-pre-0-s1.binance.org/consensus_params?height=_
-                //data-seed-pre-0-s1.binance.org/subscribe?query=_
-                //data-seed-pre-0-s1.binance.org/tx?hash=_&prove=_
-                //data-seed-pre-0-s1.binance.org/tx_search?query=_&prove=_&page=_&per_page=_
-                //data-seed-pre-0-s1.binance.org/unconfirmed_txs?limit=_
-                //data-seed-pre-0-s1.binance.org/unsubscribe?query=_
-                //data-seed-pre-0-s1.binance.org/unsubscribe_all?
-                //data-seed-pre-0-s1.binance.org/validators?height=_
-         */
     }
 }

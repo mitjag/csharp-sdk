@@ -1274,7 +1274,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Value { get; set; }
     }
 
-    public class DumpValidator
+    public class Validator
     {
         [JsonProperty("address")]
         public string Address { get; set; }
@@ -1292,10 +1292,10 @@ namespace binance.dex.sdk.noderpc.endpoint
     public class DumpValidators
     {
         [JsonProperty("validators")]
-        public List<DumpValidator> Validators { get; set; }
+        public List<Validator> Validators { get; set; }
 
         [JsonProperty("proposer")]
-        public DumpValidator Proposer { get; set; }
+        public Validator Proposer { get; set; }
     }
 
     public class BlockIdPart

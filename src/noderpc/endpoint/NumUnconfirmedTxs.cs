@@ -31,7 +31,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-        public class ResultUnconfirmedTxs : IEndpointResponse
+    public class ResultNumUnconfirmedTxs : IEndpointResponse
     {
         [JsonProperty("n_txs")]
         public string NTxs { get; set; }

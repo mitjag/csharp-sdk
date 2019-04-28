@@ -133,6 +133,14 @@ Node RPC objects:
 - ConsensusState: ConsensusRoundStateData
 - DumpConsensusState: DumpRoundStateData
 - NetInfo: ResultNetInfo
+- Genesis: ResultGenesis
+- Health: ResultHealth
+- NumUnconfirmedTxs: ResultUnconfirmedTxs
+- Status: ResultStatus
+- AbciQuery: ResultAbciQuery
+- Block: ResultBlock
+- BlockResults: ResultBlockResults
+- Blockchain: ResultBlockchainInfo
 
 Example how to communicate with Node RPC:
 
