@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -28,8 +29,12 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class ConsensusParams
+    public class ResultConsensusParams : IEndpointResponse
     {
+        [JsonProperty("block_height")]
+        public string BlockHeight { get; set; }
 
+        [JsonProperty("consensus_params")]
+        public ConsensusParams ConsensusParams { get; set; }
     }
 }

@@ -199,11 +199,25 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultBlockchainInfo>(request);
         }
         
-        public void Commit()
-        { }
+        public ResultCommit Commit(long? height = null)
+        {
+            RestRequest request = new RestRequest("commit", Method.GET);
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.Value.ToString());
+            }
+            return Execute<ResultCommit>(request);
+        }
 
-        public void ConsensusParams()
-        { }
+        public ResultConsensusParams ConsensusParams(long? height = null)
+        {
+            RestRequest request = new RestRequest("consensus_params", Method.GET);
+            if (height.HasValue)
+            {
+                request.AddQueryParameter("height", height.Value.ToString());
+            }
+            return Execute<ResultConsensusParams>(request);
+        }
 
         public void Tx()
         { }

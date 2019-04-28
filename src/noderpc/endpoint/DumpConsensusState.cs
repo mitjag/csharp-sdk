@@ -1412,7 +1412,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Evidence { get; set; } // TODO  No example available
     }
 
-    public class BlockLastCommitPrecommit
+    public class BlockCommitPrecommit
     {
         [JsonProperty("type")]
         public int Type { get; set; }
@@ -1439,13 +1439,13 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string Signature { get; set; }
     }
 
-    public class BlockLastCommit
+    public class BlockCommit
     {
         [JsonProperty("block_id")]
         public BlockId BlockId { get; set; }
 
         [JsonProperty("precommits")]
-        public List<BlockLastCommitPrecommit> Precommits { get; set; }
+        public List<BlockCommitPrecommit> Precommits { get; set; }
     }
 
     public class Block
@@ -1460,7 +1460,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public BlockEvidence Evidence { get; set; }
 
         [JsonProperty("last_commit")]
-        public BlockLastCommit LastCommit { get; set; }
+        public BlockCommit LastCommit { get; set; }
     }
 
     public class DumpBlockParts

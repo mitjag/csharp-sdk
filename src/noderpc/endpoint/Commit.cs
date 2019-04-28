@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -230,7 +231,21 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class ResultCommit
+    public class CommitSignedHeader
     {
+        [JsonProperty("header")]
+        public BlockHeader Header { get; set; }
+
+        [JsonProperty("commit")]
+        public BlockCommit Commit { get; set; }
+    }
+
+    public class ResultCommit : IEndpointResponse
+    {
+        [JsonProperty("signed_header")]
+        public CommitSignedHeader SignedHeader { get; set; }
+
+        [JsonProperty("canonical")]
+        public bool Canonical { get; set; }
     }
 }

@@ -841,7 +841,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         }
     */
 
-    public class ResultGenesisConsensusParamsBlockSize
+    public class ConsensusParamsBlockSize
     {
         [JsonProperty("max_bytes")]
         public string MaxBytes { get; set; }
@@ -850,28 +850,28 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string MaxGas { get; set; }
     }
 
-    public class ResultGenesisConsensusParamsEvidence
+    public class ConsensusParamsEvidence
     {
         [JsonProperty("max_age")]
         public string MaxAge { get; set; }
     }
 
-    public class ResultGenesisConsensusParamsValidator
+    public class ConsensusParamsValidator
     {
         [JsonProperty("pub_key_types")]
         public List<string> PubKeyTypes { get; set; }
     }
 
-    public class ResultGenesisConsensusParams
+    public class ConsensusParams
     {
         [JsonProperty("block_size")]
-        public ResultGenesisConsensusParamsBlockSize BlockSize { get; set; }
+        public ConsensusParamsBlockSize BlockSize { get; set; }
 
         [JsonProperty("evidence")]
-        public ResultGenesisConsensusParamsEvidence Evidence { get; set; }
+        public ConsensusParamsEvidence Evidence { get; set; }
 
         [JsonProperty("validator")]
-        public ResultGenesisConsensusParamsValidator Validator { get; set; }
+        public ConsensusParamsValidator Validator { get; set; }
     }
 
     public class ResultGenesisAppStateToken
@@ -1152,7 +1152,7 @@ namespace binance.dex.sdk.noderpc.endpoint
         public string ChainId { get; set; }
 
         [JsonProperty("consensus_params")]
-        public ResultGenesisConsensusParams ConsensusParams { get; set; }
+        public ConsensusParams ConsensusParams { get; set; }
 
         [JsonProperty("app_hash")]
         public string AppHash { get; set; }

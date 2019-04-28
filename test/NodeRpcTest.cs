@@ -139,7 +139,21 @@ namespace binance.dex.sdk.test
             Assert.NotNull(result.BlockMetas[0].Header.ChainId);
         }
 
+        [Fact]
+        public void CommitTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultCommit result = nodeRpcClient.Commit(10779111);
+            Assert.NotNull(result.SignedHeader.Header.ChainId);
+        }
 
+        [Fact]
+        public void ConsensusParamsTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultConsensusParams result = nodeRpcClient.ConsensusParams(10779111);
+            Assert.NotNull(result.ConsensusParams.Evidence.MaxAge);
+        }
 
 
 
