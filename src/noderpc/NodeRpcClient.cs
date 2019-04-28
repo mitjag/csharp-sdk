@@ -230,8 +230,24 @@ namespace binance.dex.sdk.noderpc
             return Execute<ResultTx>(request);
         }
 
-        public void TxSearch()
-        { }
+        public ResultTxSearch TxSearch(string query, bool prove = false, int page = 1, int perPage = 30)
+        {
+            RestRequest request = new RestRequest("tx_search", Method.GET);
+            request.AddQueryParameter("query", query);
+            if (prove)
+            {
+                request.AddQueryParameter("prove", "true");
+            }
+            if (page != 1)
+            {
+                request.AddQueryParameter("prove", page.ToString());
+            }
+            if (perPage != 30)
+            {
+                request.AddQueryParameter("perPage", perPage.ToString());
+            }
+            return Execute<ResultTxSearch>(request);
+        }
 
         public ResultUnconfirmedTxs UnconfirmedTxs(int? limit = null)
         {

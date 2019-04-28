@@ -164,6 +164,14 @@ namespace binance.dex.sdk.test
         }
 
         [Fact]
+        public void TxSearchTest()
+        {
+            NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
+            ResultTxSearch result = nodeRpcClient.TxSearch("\"tx.height=10779179\"", true);
+            Assert.NotNull(result.TotalCount);
+        }
+
+        [Fact]
         public void UnconfirmedTxsTest()
         {
             NodeRpcClient nodeRpcClient = new NodeRpcClient(endpoint);
