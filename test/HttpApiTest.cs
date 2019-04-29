@@ -23,8 +23,17 @@ namespace binance.dex.sdk.test
                 .CreateLogger();*/
             
             HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            var time = client.Time();
-            Assert.NotNull(time);
+            Times times = client.Time();
+            Assert.NotNull(times);
+        }
+
+        [Fact]
+        public async void TimeAsyncTest()
+        {
+            HttpApiClient client = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
+            var time = await client.TimeAsync();
+            Times times = time.Data;
+            Assert.NotNull(times);
         }
 
         [Fact]
