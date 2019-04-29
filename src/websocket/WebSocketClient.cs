@@ -108,7 +108,7 @@ namespace binance.dex.sdk.websocket
      the connection might be closed.
     */
 
-    public class WebSocketClient
+    public class WebSocketClient : IWebSocket
     {
         public BinanceDexEnvironmentData Env { get; set; }
 

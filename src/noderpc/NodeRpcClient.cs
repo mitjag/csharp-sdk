@@ -12,9 +12,9 @@ namespace binance.dex.sdk.noderpc
 {
     /// <summary>
     /// Node RCP client using protocol:
-    /// JSONRPC over HTTP
+    /// URI over HTTP
     /// </summary>
-    public class NodeRpcClient
+    public class NodeRpcClient : INodeRpc
     {
         public string Endpoint { get; }
 
@@ -133,14 +133,7 @@ namespace binance.dex.sdk.noderpc
         public ResultAbciQuery AbciQuery(string path, string data = null, long height = 0, bool prove = false)
         {
             RestRequest request = new RestRequest("abci_query", Method.GET);
-
-            return Execute<ResultAbciQuery>(request);
-        }
-
-        public ResultAbciQuery AbciQuery(EAbciQueryPath abciQueryPath, string data = null, long height = 0, bool prove = false )
-        {
-            RestRequest request = new RestRequest("abci_query", Method.GET);
-            request.AddQueryParameter("path", "\"" + endpoint.AbciQuery.ToAbciQueryPath(abciQueryPath) + "\"");
+            request.AddQueryParameter("path", "\"" + path + "\"");
             if (data != null)
             {
                 request.AddQueryParameter("data", data);
@@ -154,6 +147,11 @@ namespace binance.dex.sdk.noderpc
                 request.AddQueryParameter("prove", "true");
             }
             return Execute<ResultAbciQuery>(request);
+        }
+
+        public ResultAbciQuery AbciQuery(EAbciQueryPath abciQueryPath, string data = null, long height = 0, bool prove = false)
+        {
+            return AbciQuery(endpoint.AbciQuery.ToAbciQueryPath(abciQueryPath), data, height, prove);
         }
 
         public ResultAbciQuery AbciQueryTokenList(int offset = 0, int limit = 10)
