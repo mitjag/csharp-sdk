@@ -58,7 +58,7 @@ namespace binance.dex.sdk.test
             Account acc = Newtonsoft.Json.JsonConvert.DeserializeObject<Account>(response);
 
             HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
             Account account = httpApiClient.Account(wallet.Address);
             Assert.NotEqual(0, account.AccountNumber);
         }
@@ -67,7 +67,7 @@ namespace binance.dex.sdk.test
         public void AccountSequenceTest()
         {
             HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09", BinanceDexEnvironment.TEST_NET);
             var accountSequence = httpApiClient.AccountSequence(wallet.Address);
             Assert.NotEqual(0, accountSequence.Sequence);
         }
@@ -116,7 +116,7 @@ namespace binance.dex.sdk.test
         public void BroadcastTest()
         {
             HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet(
+            Wallet wallet = Wallet.FromPrivateKey(
                 "6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09",
                 BinanceDexEnvironment.TEST_NET);
 

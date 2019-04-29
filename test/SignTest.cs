@@ -68,7 +68,7 @@ namespace binance.dex.sdk.test
                 // hash = [-124, 96, -11, -122, -27, -7, 103, -38, -29, 0, -34, 45, 98, -83, 32, 16, -11, 108, -8, -88, -66, -80, 106, 14, -13, 34, -115, 99, -94, -124, -101, -117]
                 hash = sha256.ComputeHash(bytes);
             }
-            Wallet wallet = new Wallet("f0e87ed55fa3d86f62b38b405cbb5f732764a7d5bc690da45a32aa3f2fc81a36", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("f0e87ed55fa3d86f62b38b405cbb5f732764a7d5bc690da45a32aa3f2fc81a36", BinanceDexEnvironment.TEST_NET);
             //string resultB = wallet.EcKey.SignMessage(bytes);
             //string resultS = wallet.EcKey.SignMessage(json);
 

@@ -14,7 +14,7 @@ namespace binance.dex.sdk.test
         [Fact]
         public void WalletTest()
         {
-            Wallet wallet = new Wallet("95949f757db1f57ca94a5dff23314accbe7abee89597bf6a3c7382c84d7eb832",
+            Wallet wallet = Wallet.FromPrivateKey("95949f757db1f57ca94a5dff23314accbe7abee89597bf6a3c7382c84d7eb832",
                 BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb1grpf0955h0ykzq3ar5nmum7y6gdfl6lx8xu7hm", wallet.Address);
             Assert.Equal("40c2979694bbc961023d1d27be6fc4d21a9febe6",
@@ -28,7 +28,7 @@ namespace binance.dex.sdk.test
         {
             //List<string> words = new List<string> { "slot live best metal mandate page hover tank bronze code salad hill hen salad train inmate autumn nut home city shield level board measure" };
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb12n2p6zcvgcpumyexqhnp3q9tc2327l39ycfnyk", wallet.Address);
             wallet.AccountNumber = 0;
             wallet.Sequence = 11L;
@@ -68,7 +68,7 @@ namespace binance.dex.sdk.test
         {
             //List<String> words = Arrays.asList("slot live best metal mandate page hover tank bronze code salad hill hen salad train inmate autumn nut home city shield level board measure".split(" "));
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb12n2p6zcvgcpumyexqhnp3q9tc2327l39ycfnyk", wallet.Address);
 
             wallet.AccountNumber = 0;
@@ -106,7 +106,7 @@ namespace binance.dex.sdk.test
         {
             //List<String> words = Arrays.asList("slot live best metal mandate page hover tank bronze code salad hill hen salad train inmate autumn nut home city shield level board measure".split(" "));
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("db923c5e1b5b2db221da5d14bdc41c5fb3c15510bf1fb2bc8faf33679dd85e54", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb12n2p6zcvgcpumyexqhnp3q9tc2327l39ycfnyk", wallet.Address);
 
             wallet.AccountNumber = 0;
@@ -141,7 +141,7 @@ namespace binance.dex.sdk.test
         {
             //List<String> words = Arrays.asList("trial raw kiss bench silent crystal clever cloud chapter obvious error income mechanic attend army outer found cube tribe sort south possible scene fox".split(" "));
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb1mrslq6lhglm3jp7pxzlk8u4549pmtp9sgvn2rc", wallet.Address);
 
             wallet.AccountNumber = 0;
@@ -176,7 +176,7 @@ namespace binance.dex.sdk.test
         {
             //List<String> words = Arrays.asList("trial raw kiss bench silent crystal clever cloud chapter obvious error income mechanic attend army outer found cube tribe sort south possible scene fox".split(" "));
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb1mrslq6lhglm3jp7pxzlk8u4549pmtp9sgvn2rc", wallet.Address);
 
             wallet.AccountNumber = 0;
@@ -210,7 +210,7 @@ namespace binance.dex.sdk.test
         {
             //List<String> words = Arrays.asList("trial raw kiss bench silent crystal clever cloud chapter obvious error income mechanic attend army outer found cube tribe sort south possible scene fox".split(" "));
             //Wallet wallet = Wallet.createWalletFromMnemonicCode(words, BinanceDexEnvironment.TEST_NET);
-            Wallet wallet = new Wallet("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
+            Wallet wallet = Wallet.FromPrivateKey("84c4226a24732e2d832e9d932779adfb9b95401ee607086967c7c5bba1e3a18e", BinanceDexEnvironment.TEST_NET);
             Assert.Equal("tbnb1mrslq6lhglm3jp7pxzlk8u4549pmtp9sgvn2rc", wallet.Address);
 
             wallet.AccountNumber = 0;

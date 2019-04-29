@@ -14,10 +14,12 @@ namespace binance.dex.sdk.crypto
 {
     public class Wallet
     {
-        private readonly Dictionary<BinanceDexEnvironmentData, string> CHAIN_IDS = new Dictionary<BinanceDexEnvironmentData, string>();
+        private const string hdPath = "44'/714'/0'/0/0";
+        private readonly Dictionary<BinanceDexEnvironmentData, string> chainIds = new Dictionary<BinanceDexEnvironmentData, string>();
         private readonly HttpApiClient client;
 
         public string PrivateKey { get; set; }
+        public string Mnemonic { get; set; }
         public string Address { get; set; }
         public Key EcKey { get; set; }
         public byte[] AddressBytes { get; set; }
@@ -29,19 +31,17 @@ namespace binance.dex.sdk.crypto
 
         const string pbase32 = "abcdefghijklmnopqrstuvwxyz234567";
 
-        public Wallet(string privateKey, BinanceDexEnvironmentData env)
+        public Wallet(Key key, BinanceDexEnvironmentData env)
         {
-            PrivateKey = privateKey;
+            EcKey = key;
             Env = env;
-            BigInteger privateKeyBigInteger = BigInteger.Parse("0" + PrivateKey, NumberStyles.HexNumber); // append "0" to get unsigned BigInteger
-            EcKey = new Key(privateKeyBigInteger.ToByteArray(true, true));
             Bech32Encoder bech32Encoder = Encoders.Bech32(Env.Hrp);
             AddressBytes = EcKey.PubKey.Hash.ToBytes();
             string b32 = Encoders.Base32.EncodeData(AddressBytes);
             byte[] address32 = new byte[b32.Length];
             for (int i = 0; i < b32.Length; i++)
             {
-                address32[i] = (byte) pbase32.IndexOf(b32[i]);
+                address32[i] = (byte)pbase32.IndexOf(b32[i]);
             }
             Address = bech32Encoder.EncodeData(address32);
             byte[] pubKey = EcKey.PubKey.ToBytes();
@@ -52,6 +52,33 @@ namespace binance.dex.sdk.crypto
             pubKey.CopyTo(PubKeyForSign, pubKeyPrefix.Length + 1);
 
             client = new HttpApiClient(Env);
+        }
+
+        public static Wallet FromPrivateKey(string privateKey, BinanceDexEnvironmentData env)
+        {
+            BigInteger privateKeyBigInteger = BigInteger.Parse("0" + privateKey, NumberStyles.HexNumber); // append "0" to get unsigned BigInteger
+            Key key = new Key(privateKeyBigInteger.ToByteArray(true, true));
+            Wallet wallet = new Wallet(key, env);
+            wallet.PrivateKey = privateKey;
+            return wallet;
+        }
+
+        public static Wallet FromMnemonicCode(string mnemonicCode, BinanceDexEnvironmentData env)
+        {
+            Mnemonic mnemonic = new Mnemonic(mnemonicCode);
+            byte[] seed = mnemonic.DeriveSeed();
+            ExtKey extKey = new ExtKey(seed);
+            KeyPath keyPath = KeyPath.Parse(hdPath);
+            ExtKey derived = extKey.Derive(keyPath);
+            Wallet wallet = new Wallet(derived.PrivateKey, env);
+            wallet.Mnemonic = mnemonicCode;
+            return wallet;
+        }
+
+        public static Wallet FromRandomMnemonicCode(BinanceDexEnvironmentData env)
+        {
+            Mnemonic mnemonic = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
+            return FromMnemonicCode(mnemonic.ToString(), env);
         }
 
         public byte[] DecodeAddress(string address)
@@ -95,7 +122,7 @@ namespace binance.dex.sdk.crypto
 
             if (ChainId == null)
             {
-                ChainId = CHAIN_IDS.GetValueOrDefault(Env);
+                ChainId = chainIds.GetValueOrDefault(Env);
                 if (ChainId == null)
                 {
                     InitChainId(client);
@@ -107,7 +134,7 @@ namespace binance.dex.sdk.crypto
         {
             Infos info = client.NodeInfo();
             ChainId = info.NodeInfo.Network;
-            CHAIN_IDS.Add(Env, ChainId);
+            chainIds.Add(Env, ChainId);
         }
     }
 }

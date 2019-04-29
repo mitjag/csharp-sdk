@@ -26,7 +26,7 @@ Wallet
 Create wallet with private key string value either for TEST_NET or PROD:
 
 ``` cs
-    Wallet wallet = new Wallet(
+    Wallet wallet = Wallet.FromPrivateKey(
         "6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09",
         BinanceDexEnvironment.TEST_NET);
 ```
@@ -67,7 +67,7 @@ Example how to transfer founds:
 
 ``` cs
     HttpApiClient httpApiClient = new HttpApiClient(BinanceDexEnvironment.TEST_NET);
-    Wallet wallet = new Wallet(
+    Wallet wallet = Wallet.FromPrivateKey(
         "6d3cfc67595db1523915219718a31fa5b467d099a51035d8fb82ea9841496f09",
         BinanceDexEnvironment.TEST_NET);
 
