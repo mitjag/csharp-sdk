@@ -233,7 +233,7 @@ namespace binance.dex.sdk.noderpc
         public ResultTxSearch TxSearch(string query, bool prove = false, int page = 1, int perPage = 30)
         {
             RestRequest request = new RestRequest("tx_search", Method.GET);
-            request.AddQueryParameter("query", query);
+            request.AddQueryParameter("query", "\"" + query + "\"");
             if (prove)
             {
                 request.AddQueryParameter("prove", "true");
@@ -274,13 +274,40 @@ namespace binance.dex.sdk.noderpc
          * Broadcast endpoints
          */
 
-        public void BroadcastTxAsync()
-        { }
+        /// <summary>
+        /// BroadcastTxAsync
+        /// </summary>
+        /// <param name="tx">The transaction info bytes in hex</param>
+        /// <returns></returns>
+        public ResultBroadcastTx BroadcastTxAsync(string tx)
+        {
+            RestRequest request = new RestRequest("broadcast_tx_async", Method.GET);
+            request.AddQueryParameter("tx", "\"0x" + tx + "\"");
+            return Execute<ResultBroadcastTx>(request);
+        }
 
-        public void BroadcastTxCommit()
-        { }
+        /// <summary>
+        /// BroadcastTxCommit
+        /// </summary>
+        /// <param name="tx">The transaction info bytes in hex</param>
+        /// <returns></returns>
+        public ResultBroadcastTxCommit BroadcastTxCommit(string tx)
+        {
+            RestRequest request = new RestRequest("broadcast_tx_commit", Method.GET);
+            request.AddQueryParameter("tx", "\"0x" + tx + "\"");
+            return Execute<ResultBroadcastTxCommit>(request);
+        }
 
-        public void BroadcastTxSync()
-        { }
+        /// <summary>
+        /// BroadcastTxSync
+        /// </summary>
+        /// <param name="tx">The transaction info bytes in hex</param>
+        /// <returns></returns>
+        public ResultBroadcastTx BroadcastTxSync(string tx)
+        {
+            RestRequest request = new RestRequest("broadcast_tx_sync", Method.GET);
+            request.AddQueryParameter("tx", "\"0x" + tx + "\"");
+            return Execute<ResultBroadcastTx>(request);
+        }
     }
 }

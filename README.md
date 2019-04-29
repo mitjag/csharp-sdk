@@ -128,7 +128,7 @@ Example how to listen web socket stream:
 Node RPC
 --------
 
-Node RPC objects:
+Node RPC endpoints and response objects:
 - AbciInfo: ResponseData 
 - ConsensusState: ConsensusRoundStateData
 - DumpConsensusState: DumpRoundStateData
@@ -139,8 +139,18 @@ Node RPC objects:
 - Status: ResultStatus
 - AbciQuery: ResultAbciQuery
 - Block: ResultBlock
+- BlockByHash: ResultBlock
 - BlockResults: ResultBlockResults
 - Blockchain: ResultBlockchainInfo
+- Commit: ResultCommit
+- ConsensusParams: ResultConsensusParams
+- Tx: ResultTx
+- TxSearch: ResultTxSearch
+- UnconfirmedTxs: ResultUnconfirmedTxs
+- Validators: ResultValidators
+- BroadcastTxAsync: ResultBroadcastTx
+- BroadcastTxCommit: ResultBroadcastTxCommit
+- BroadcastTxSync: ResultBroadcastTx
 
 Example how to communicate with Node RPC:
 
