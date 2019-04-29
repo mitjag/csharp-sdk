@@ -5,7 +5,7 @@ using System.Text;
 
 namespace binance.dex.sdk.websocket.stream
 {
-    public class Payload<T> where T : IStreamData
+    public class Payload<T>
     {
         [JsonProperty("stream")]
         public string Stream { get; set; }

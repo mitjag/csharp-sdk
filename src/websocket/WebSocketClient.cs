@@ -21,62 +21,62 @@ namespace binance.dex.sdk.websocket
     {
         public static string Orders(string address)
         {
-            return $"ws/{address}";
+            return $"{address}";
         }
 
         public static string Accounts(string address)
         {
-            return $"ws/{address}";
+            return $"{address}";
         }
 
         public static string Transfers(string address)
         {
-            return $"ws/{address}";
+            return $"{address}";
         }
 
         public static string Trades(string symbol)
         {
-            return $"ws/{symbol}@trades";
+            return $"{symbol}@trades";
         }
 
         public static string MarketDiff(string symbol)
         {
-            return $"ws/{symbol}@marketDiff";
+            return $"{symbol}@marketDiff";
         }
 
         public static string MarketDepth(string symbol)
         {
-            return $"ws/{symbol}@marketDepth";
+            return $"{symbol}@marketDepth";
         }
 
         public static string KLine(string symbol, string interval)
         {
-            return $"ws/{symbol}@kline_{interval}";
+            return $"{symbol}@kline_{interval}";
         }
 
         public static string Ticker(string symbol)
         {
-            return $"ws/{symbol}@ticker";
+            return $"{symbol}@ticker";
         }
 
         public static string AllTickers()
         {
-            return $"ws/$all@allTickers";
+            return $"$all@allTickers";
         }
 
         public static string MiniTicker(string symbol)
         {
-            return $"ws/{symbol}@miniTicker";
+            return $"{symbol}@miniTicker";
         }
 
-        public static string AllMiniTickers(string symbol)
+        public static string AllMiniTickers()
         {
-            return $"ws/$all@allMiniTickers";
+            return $"$all@allMiniTickers";
         }
 
         public static string Blockheight()
         {
-            return $"ws/$all@blockheight";
+            return $"$all@blockheight";
         }
 
         /*
@@ -114,6 +114,8 @@ namespace binance.dex.sdk.websocket
 
         public ETopic Topic { get; set; }
 
+        public List<ETopic> Topics { get; set; }
+
         public string Address { get; set; }
 
         public string Symbol { get; set; }
@@ -130,54 +132,62 @@ namespace binance.dex.sdk.websocket
 
         public bool IsError { get; set; }
 
-        private void BuildUrl()
+        private string ToUrl(ETopic topic)
         {
-            switch (Topic)
+            switch (topic)
             {
                 case ETopic.Orders:
-                    Url = $"{Env.WsBaseUrl}{Streams.Orders(Address)}";
-                    break;
+                    return Streams.Orders(Address);
                 case ETopic.Accounts:
-                    Url = $"{Env.WsBaseUrl}{Streams.Accounts(Address)}";
-                    break;
+                    return Streams.Accounts(Address);
                 case ETopic.Transfers:
-                    Url = $"{Env.WsBaseUrl}{Streams.Transfers(Address)}";
-                    break;
+                    return Streams.Transfers(Address);
                 case ETopic.Trades:
-                    Url = $"{Env.WsBaseUrl}{Streams.Trades(Symbol)}";
-                    break;
+                    return Streams.Trades(Symbol);
                 case ETopic.MarketDiff:
-                    Url = $"{Env.WsBaseUrl}{Streams.MarketDiff(Symbol)}";
-                    break;
+                    return Streams.MarketDiff(Symbol);
                 case ETopic.MarketDepth:
-                    Url = $"{Env.WsBaseUrl}{Streams.MarketDepth(Symbol)}";
-                    break;
+                    return Streams.MarketDepth(Symbol);
                 case ETopic.KLine:
-                    Url = $"{Env.WsBaseUrl}{Streams.KLine(Symbol, stream.KLineInterval.ToKLineInterval(KLineInterval))}";
-                    break;
+                    return Streams.KLine(Symbol, stream.KLineInterval.ToKLineInterval(KLineInterval));
                 case ETopic.Ticker:
-                    Url = $"{Env.WsBaseUrl}{Streams.Ticker(Symbol)}";
-                    break;
+                    return Streams.Ticker(Symbol);
                 case ETopic.AllTickers:
-                    Url = $"{Env.WsBaseUrl}{Streams.AllTickers()}";
-                    break;
+                    return Streams.AllTickers();
                 case ETopic.MiniTicker:
-                    Url = $"{Env.WsBaseUrl}{Streams.MiniTicker(Symbol)}";
-                    break;
+                    return Streams.MiniTicker(Symbol);
                 case ETopic.AllMiniTickers:
-                    Url = $"{Env.WsBaseUrl}{Streams.AllMiniTickers(Symbol)}";
-                    break;
+                    return Streams.AllMiniTickers();
                 case ETopic.Blockheight:
-                    Url = $"{Env.WsBaseUrl}{Streams.Blockheight()}";
-                    break;
+                    return Streams.Blockheight();
                 default:
                     throw new WebSocketException($"Unhandled Topic: {Topic}");
             }
         }
 
+        private void BuildUrl()
+        {
+            Url = $"{Env.WsBaseUrl}stream?streams=";
+            foreach (ETopic topic in Topics)
+            {
+                Url += $"{ToUrl(topic)}/";
+            }
+            Url = Url.Substring(0, Url.Length - 1);
+        }
+
         public void Connect()
         {
-            BuildUrl();
+            if (Topics == null || Topics.Count == 0)
+            {
+                // Single streams may be accessed at /ws/\<streamName>
+                Url = $"{Env.WsBaseUrl}ws/{ToUrl(Topic)}";
+            }
+            else
+            {
+                // Combined streams may be accessed at /stream?streams=\<streamName1>/\<streamName2>/\<streamName3>
+                BuildUrl();
+            }
+            
             IsOpen = true;
             IsError = false;
             Client.ConnectAsync(Url, CancellationToken.None, c =>
@@ -215,11 +225,11 @@ namespace binance.dex.sdk.websocket
             IStreamData streamData = null;
             if (stream == websocket.stream.Topic.ToTopic(ETopic.Orders))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<OrdersData>>(message).Data;
+                streamData = new OrdersData { Orders = JsonConvert.DeserializeObject<Payload<List<Order>>>(message).Data };
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.Accounts))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<AccountsData>>(message).Data;
+                streamData = new AccountsData { Accounts = JsonConvert.DeserializeObject<Payload<List<Account>>>(message).Data };
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.Transfers))
             {
@@ -227,7 +237,7 @@ namespace binance.dex.sdk.websocket
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.Trades))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<TradesData>>(message).Data;
+                streamData = new TradesData { Trades = JsonConvert.DeserializeObject<Payload<List<Trade>>>(message).Data };
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.MarketDiff))
             {
@@ -247,15 +257,15 @@ namespace binance.dex.sdk.websocket
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.AllTickers))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<AllTickersData>>(message).Data;
-            }
+                streamData = new AllTickersData { AllTickers = JsonConvert.DeserializeObject<Payload<List<Ticker>>>(message).Data };
+             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.MiniTicker))
             {
                 streamData = JsonConvert.DeserializeObject<Payload<MiniTicker>>(message).Data;
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.AllMiniTickers))
             {
-                streamData = JsonConvert.DeserializeObject<Payload<AllMiniTickersData>>(message).Data;
+                streamData = new AllMiniTickersData { AllMiniTickers = JsonConvert.DeserializeObject<Payload<List<MiniTicker>>>(message).Data };
             }
             else if (stream == websocket.stream.Topic.ToTopic(ETopic.Blockheight))
             {
